@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/Config/Config.php';
 require_once __DIR__ . '/Helpers/Debug.php';
+require_once __DIR__ . '/Helpers/Token.php';
 
 //AUTO LOADER
 spl_autoload_register(function ($className) {

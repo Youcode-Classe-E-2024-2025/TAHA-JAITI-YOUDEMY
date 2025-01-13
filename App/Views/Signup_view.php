@@ -42,7 +42,8 @@
                         <a href="/login" class="text-blue-500 font-bold" >Login</a>
                     </p>
                 </div>
-
+                
+                <input type="hidden" name="csrf" value="<?= $token = genToken(); ?>">
                 <button type="submit"
                     class="btn_primary w-full">
                     Create Account

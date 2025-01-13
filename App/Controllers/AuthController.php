@@ -11,6 +11,11 @@ class AuthController extends Controller
     public function register(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if (!$this->validateToken($_POST['csrf'])){
+                $_SESSION['error'] = 'Invalid CSRF token.';
+                $this->redirect('/signup');
+            }
+
             $name = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
@@ -35,7 +40,7 @@ class AuthController extends Controller
             $user->setRole($role);
 
             if ($user->create()){
-                $_SESSION['success'] = 'Registration successful.';
+                $_SESSION['success'] = 'Registration successful, Please wait until an admin accepts you.';
                 $this->redirect('/login');
             } else {
                 $_SESSION['error'] = 'Registration unsuccessful, Try again.';
@@ -43,6 +48,5 @@ class AuthController extends Controller
             }
         }
 
-        echo 'dffd';
     }
 }
