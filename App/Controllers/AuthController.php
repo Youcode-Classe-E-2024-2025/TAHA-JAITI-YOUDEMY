@@ -19,7 +19,27 @@ class AuthController extends Controller
             if (empty($name) || empty($email) || empty($password) || empty($role)) {
                 $_SESSION['error'] = 'All fields are required.';
                 $this->redirect('/signup');
-                exit;
+            }
+
+            $user = $this->userModel;
+
+            $user->setEmail($email);
+
+            if ($user->getByEmail()){
+                $_SESSION['error'] = 'A user with this email already exists.';
+                $this->redirect('/signup');
+            }
+
+            $user->setPassword($password);
+            $user->setName($name);
+            $user->setRole($role);
+
+            if ($user->create()){
+                $_SESSION['success'] = 'Registration successful.';
+                $this->redirect('/login');
+            } else {
+                $_SESSION['error'] = 'Registration unsuccessful, Try again.';
+                $this->redirect('/signup'); 
             }
         }
 
