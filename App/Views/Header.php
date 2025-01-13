@@ -23,6 +23,7 @@
             <a href="#" class="hover:text-blue-400 transition-colors">Browse</a>
             <a href="/login" class="hover:text-blue-400 transition-colors">Log in</a>
             <a href="/signup" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-colors">Sign up</a>
+            <a href="?action=auth_logout" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-colors">Log out</a>
         </nav>
         
         <!-- Mobile Menu Button -->

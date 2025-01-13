@@ -109,4 +109,9 @@ class AuthController extends Controller
         }
     }
 
+    public function logout(): void
+    {
+        session_destroy();
+        $this->redirect('/login');
+    }
 }
