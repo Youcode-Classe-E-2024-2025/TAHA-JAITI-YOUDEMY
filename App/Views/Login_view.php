@@ -1,3 +1,5 @@
+<?php dd($_SESSION) ?>
+
 <div class="h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="grid gap-8 w-full max-w-xl">
         <!-- Login Form -->
@@ -7,7 +9,7 @@
                 <p class="text-gray-400 mt-2">Welcome back to Youdemy</p>
             </div>
 
-            <form class="space-y-6">
+            <form action="?action=auth_login" method="POST" class="space-y-6">
                 <div>
                     <label for="email" class="text-gray-300 block mb-2">Email</label>
                     <input type="email" name="email"
@@ -22,6 +24,7 @@
                         placeholder="Enter your password">
                 </div>
 
+                <input type="hidden" name="csrf" value="<?= $token = genToken(); ?>">
                 <button type="submit"
                     class="btn_primary w-full">
                     Login

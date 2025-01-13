@@ -26,6 +26,7 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
 
         if ($method === 'GET') {
+            
             $uri = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
             $uri = empty($uri[0]) ? $this->defaultView : $uri[0];
 

@@ -22,7 +22,7 @@ class User{
     public function setRole(string $role) {$this->role = $role;}
 
     public function create(){
-        $sql = 'INSERT INTO users(username, email, password, role) VALUES (:name, :email, :pass, :role)';
+        $sql = 'INSERT INTO users(name, email, password, role) VALUES (:name, :email, :pass, :role)';
         $stmt = $this->pdo->execute($sql, [
             ':name' => $this->name,
             ':email' => $this->email,
