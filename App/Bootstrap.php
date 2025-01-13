@@ -1,0 +1,20 @@
+<?php
+
+//AUTO LOADER
+spl_autoload_register(function ($className) {
+    $directories = [
+        __DIR__ . '/Controllers',
+        __DIR__ . '/Core',
+        __DIR__ . '/Models',
+    ];
+
+    $classPath = str_replace('\\', DIRECTORY_SEPARATOR, $className) . '.php';
+
+    foreach ($directories as $directory) {
+        $file = $directory . DIRECTORY_SEPARATOR . $classPath;
+        if (file_exists($file)) {
+            require_once $file;
+            return;
+        }
+    }
+});
