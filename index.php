@@ -25,10 +25,10 @@ $router->action();
     <?php
     //HEADER
     require_once __DIR__ . '/App/Views/Header.php';
-    
+
     //VIEWS LOGIC
     $router->view();
-    
+
     //FOOTER
     require_once __DIR__ . '/App/Views/Footer.php';
     ?>

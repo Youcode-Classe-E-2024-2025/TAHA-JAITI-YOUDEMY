@@ -588,6 +588,20 @@ video {
   }
 }
 
+.icon-\[mdi--hamburger-menu\] {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='black' d='M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z'/%3E%3C/svg%3E");
+}
+
 .btn_primary {
   cursor: pointer;
   border-radius: 0.125rem;
@@ -723,16 +737,12 @@ video {
   height: 2rem;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .h-full {
   height: 100%;
 }
 
-.min-h-screen {
-  min-height: 100vh;
+.h-screen {
+  height: 100vh;
 }
 
 .w-16 {
@@ -759,10 +769,6 @@ video {
   max-width: 36rem;
 }
 
-.grid-cols-2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-
 .flex-col {
   flex-direction: column;
 }
@@ -785,10 +791,6 @@ video {
 
 .gap-16 {
   gap: 4rem;
-}
-
-.gap-4 {
-  gap: 1rem;
 }
 
 .gap-8 {

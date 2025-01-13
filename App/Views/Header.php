@@ -7,7 +7,7 @@
             <a href="/signup" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-colors">Sign up</a>
         </nav>
         <button class="md:hidden text-gray-300 hover:text-white">
-            <i class="fas fa-bars"></i>
+            <span class="icon-[mdi--hamburger-menu] text-4xl"></span>
         </button>
     </div>
 </header>
