@@ -1,4 +1,4 @@
-<div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div class="h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="grid gap-8 w-full max-w-xl">
         <!-- Signup Form -->
         <div class="bg-black p-8 rounded-lg shadow-xl">
@@ -8,19 +8,11 @@
             </div>
 
             <form class="space-y-6">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-gray-300 block mb-2">First Name</label>
-                        <input type="text"
-                            class="input-field"
-                            placeholder="First name">
-                    </div>
-                    <div>
-                        <label class="text-gray-300 block mb-2">Last Name</label>
-                        <input type="text"
-                            class="input-field"
-                            placeholder="Last name">
-                    </div>
+                <div>
+                    <label class="text-gray-300 block mb-2">Username</label>
+                    <input type="text"
+                        class="input-field"
+                        placeholder="First name">
                 </div>
 
                 <div>
@@ -34,7 +26,7 @@
                     <label class="text-gray-300 block mb-2">Password</label>
                     <input type="password"
                         class="input-field"
-                        placeholder="Create a password">
+                        placeholder="Enter a password">
                 </div>
 
                 <div>

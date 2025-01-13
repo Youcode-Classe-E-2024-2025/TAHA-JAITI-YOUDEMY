@@ -2,7 +2,6 @@
 
 class Router
 {
-
     // Directory paths for controllers and views
     private $actionDirectory;
     private $viewDirectory;
