@@ -20,10 +20,10 @@ const DB_SQL = "
         id SERIAL PRIMARY KEY,
         username VARCHAR(50) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL,
+        password TEXT NOT NULL,
         role VARCHAR(20) NOT NULL CHECK (role IN ('student', 'teacher', 'admin')),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        deleted_at TIMESTAMP DEFAULT NULL
+        suspended_at TIMESTAMP DEFAULT NULL
     );
 
     -- Courses Table
