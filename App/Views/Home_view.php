@@ -103,8 +103,8 @@
     <div class="container mx-auto px-6 text-center">
         <h2 class="text-4xl font-bold text-white mb-8">Ready to Start Learning?</h2>
         <p class="text-xl text-gray-300 mb-8">Join thousands of students already learning on Youdemy</p>
-        <button class="btn_primary bg-white text-blue-900 hover:bg-gray-300">
+        <a href="/signup" class="btn_primary bg-white text-blue-900 hover:bg-gray-300">
             Create Free Account
-        </button>
+        </a>
     </div>
 </section>

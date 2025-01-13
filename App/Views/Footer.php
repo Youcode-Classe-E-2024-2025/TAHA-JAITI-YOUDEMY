@@ -1,4 +1,4 @@
-<footer class="bg-gray-800 border-t border-gray-700 mt-12 py-8">
+<footer class="bg-gray-800 border-t border-gray-700 py-8">
     <div class="container mx-auto px-4 text-center">
         <p class="text-gray-400">&copy; 2025 Youdemy. All rights reserved.</p>
         <div class="mt-4 flex justify-center space-x-6">
