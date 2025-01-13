@@ -37,6 +37,12 @@
                     </select>
                 </div>
 
+                <div>
+                    <p class="text-gray-300 block mb-2">Already a user? 
+                        <a href="/login" class="text-blue-500 font-bold" >Login</a>
+                    </p>
+                </div>
+
                 <button type="submit"
                     class="btn_primary w-full">
                     Create Account

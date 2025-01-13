@@ -33,6 +33,8 @@ $router->action();
     require_once __DIR__ . '/App/Views/Footer.php';
     ?>
 
+
+    <script type="module" src="./src/main.js"></script>
 </body>
 
 </html>
