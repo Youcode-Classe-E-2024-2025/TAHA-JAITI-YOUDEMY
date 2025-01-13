@@ -22,7 +22,6 @@ const DB_SQL = "
         email VARCHAR(100) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         role VARCHAR(20) NOT NULL CHECK (role IN ('student', 'teacher', 'admin')),
-        category_id INT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         deleted_at TIMESTAMP DEFAULT NULL
     );
@@ -34,6 +33,7 @@ const DB_SQL = "
         description TEXT NOT NULL,
         content TEXT,
         teacher_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        category_id INT NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         deleted_at TIMESTAMP DEFAULT NULL
     );

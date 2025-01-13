@@ -18,12 +18,13 @@ class Database
         $this->initDatabase();
     }
 
-    public function __call($method, $args){
-        if ($this->pdo === null){
+    public function __call($method, $args)
+    {
+        if ($this->pdo === null) {
             $this->connect();
         }
 
-        if (method_exists($this->pdo, $method)){
+        if (method_exists($this->pdo, $method)) {
             return call_user_func_array([$this->pdo, $method], $args);
         }
     }
@@ -88,9 +89,57 @@ class Database
         }
         return $this->pdo;
     }
-
     public function closeConnection(): void
     {
         $this->pdo = null;
+    }
+
+    public function prepareExecute(string $sql, array $params = []): PDOStatement
+    {
+        if ($this->pdo === null) {
+            $this->connect();
+        }
+
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+
+            return $stmt;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function fetchAll(string $sql, array $params = []): array
+    {
+        $stmt = $this->prepareExecute($sql, $params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function fetch(string $sql, array $params)
+    {
+        $stmt = $this->prepareExecute($sql, $params);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+
+    public function fetchCol(string $sql, array $params)
+    {
+        $stmt = $this->prepareExecute($sql, $params);
+        return $stmt->fetchColumn();
+    }
+
+    public function execute(string $sql, array $params = []): int
+    {
+        $stmt = $this->prepareExecute($sql, $params);
+        return $stmt->rowCount();
+    }
+
+    public function lastInsertId(): string
+    {
+        if ($this->pdo === null) {
+            $this->connect();
+        }
+        return $this->pdo->lastInsertId();
     }
 }
