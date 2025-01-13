@@ -8,7 +8,7 @@ class Router {
     private $defaultView;
     private $notFound;
 
-    public function __construct($dir = __DIR__ . '/../Views', $default = 'Home', $notFound = '404', $actionDir = __DIR__ . '/../Controllers'){
+    public function __construct($dir = __DIR__ . '/../Views', $default = 'home', $notFound = '404', $actionDir = __DIR__ . '/../Controllers'){
         $this->viewDirectory = rtrim($dir, '/') . '/';
         $this->defaultView = $default;
         $this->notFound = $notFound;
@@ -18,7 +18,7 @@ class Router {
     public function view(): void {
         $view = $_GET['view'] ?? $this->defaultView;
 
-        $view = basename($view);
+        $view = ucfirst(strtolower(basename($view)));
 
         $viewFile = $this->viewDirectory . $view . '_view.php';
         if (file_exists($viewFile)){
