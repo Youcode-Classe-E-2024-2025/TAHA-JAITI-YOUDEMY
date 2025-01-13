@@ -16,11 +16,13 @@ class User{
     public function setId(int $id) {$this->id = $id;}
     public function setName(string $name) {$this->name = $name;}
     public function setEmail(string $email) {$this->email = $email;}
-    public function setPassword(string $password) {$this->password = $password;}
+    public function setPassword(string $password) {
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
+    }
     public function setRole(string $role) {$this->role = $role;}
 
     public function create(){
-        $sql = 'INSER INTO users(name, email, password, role) VALUES (:name, :email, :pass, :role)';
+        $sql = 'INSERT INTO users(username, email, password, role) VALUES (:name, :email, :pass, :role)';
         $stmt = $this->pdo->execute($sql, [
             ':name' => $this->name,
             ':email' => $this->email,
@@ -28,10 +30,12 @@ class User{
             ':role' => $this->role
         ]);
 
-        if ($stmt){
-            return true;
-        }
-        return false;
+        return (bool) $stmt;
+    }
+
+    public function getByEmail(){
+        $sql = "SELECT * FROM users WHERE email = :email";
+        return $this->pdo->fetch($sql, [":email" => $this->email]);
     }
 
 }

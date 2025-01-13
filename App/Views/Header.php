@@ -1,3 +1,18 @@
+<?php 
+// $user = new User();
+
+// $user->setName('John Doe');
+// $user->setEmail('john@example.com');
+// $user->setPassword('password123');
+// $user->setRole('student');
+
+// if ($user->create()) {
+//     echo 'User created successfully!';
+// } else {
+//     echo 'Failed to create user.';
+// }
+?>
+
 <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
     <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <!-- Logo -->
@@ -26,3 +41,5 @@
         <a href="/signup" class="w-full bg-blue-600 hover:bg-blue-700 text-center px-4 py-2 rounded transition-colors">Sign up</a>
     </nav>
 </header>
+
+<?php require_once __DIR__ . '/Helper/Message.php' ?>

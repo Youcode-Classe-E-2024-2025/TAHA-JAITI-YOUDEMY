@@ -7,7 +7,7 @@
                 <p class="text-gray-400 mt-2">Join the Youdemy community</p>
             </div>
 
-            <form class="space-y-6">
+            <form action="?action=auth_register" method="post" class="space-y-6">
                 <div>
                     <label for="username" class="text-gray-300 block mb-2">Username</label>
                     <input type="text" name="username"
