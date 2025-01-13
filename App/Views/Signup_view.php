@@ -9,29 +9,29 @@
 
             <form class="space-y-6">
                 <div>
-                    <label class="text-gray-300 block mb-2">Username</label>
-                    <input type="text"
+                    <label for="username" class="text-gray-300 block mb-2">Username</label>
+                    <input type="text" name="username"
                         class="input-field"
                         placeholder="First name">
                 </div>
 
                 <div>
-                    <label class="text-gray-300 block mb-2">Email</label>
-                    <input type="email"
+                    <label for="email" class="text-gray-300 block mb-2">Email</label>
+                    <input type="email" name="email"
                         class="input-field"
                         placeholder="Enter your email">
                 </div>
 
                 <div>
-                    <label class="text-gray-300 block mb-2">Password</label>
-                    <input type="password"
+                    <label for="password" class="text-gray-300 block mb-2">Password</label>
+                    <input type="password" name="password"
                         class="input-field"
                         placeholder="Enter a password">
                 </div>
 
                 <div>
-                    <label class="text-gray-300 block mb-2">Role</label>
-                    <select class="input-field">
+                    <label for="role" class="text-gray-300 block mb-2">Role</label>
+                    <select class="input-field" name="role">
                         <option value="student">Student</option>
                         <option value="teacher">Teacher</option>
                     </select>

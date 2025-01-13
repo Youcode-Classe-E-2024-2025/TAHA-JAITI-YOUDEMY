@@ -9,15 +9,15 @@
 
             <form class="space-y-6">
                 <div>
-                    <label class="text-gray-300 block mb-2">Email</label>
-                    <input type="email"
+                    <label for="email" class="text-gray-300 block mb-2">Email</label>
+                    <input type="email" name="email"
                         class="input-field"
                         placeholder="Enter your email">
                 </div>
 
                 <div>
-                    <label class="text-gray-300 block mb-2">Password</label>
-                    <input type="password"
+                    <label for="password" class="text-gray-300 block mb-2">Password</label>
+                    <input type="password" name="password"
                         class="input-field"
                         placeholder="Enter your password">
                 </div>
