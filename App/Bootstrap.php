@@ -1,5 +1,9 @@
 <?php
 
+require_once __DIR__ . '/Config/Config.php';
+require_once __DIR__ . '/Helpers/Secure.php';
+require_once __DIR__ . '/Helpers/Debug.php';
+
 //AUTO LOADER
 spl_autoload_register(function ($className) {
     $directories = [
