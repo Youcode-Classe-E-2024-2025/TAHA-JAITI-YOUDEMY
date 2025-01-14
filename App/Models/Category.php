@@ -49,7 +49,7 @@ class Category
 
     public function getAll(): array
     {
-        $sql = "SELECT * FROM categories";
+        $sql = "SELECT * FROM categories ORDER BY id ASC";
         return $this->pdo->fetchAll($sql);
     }
 
@@ -80,7 +80,7 @@ class Category
     }
 
     public function update(): bool {
-        if (!$this->id || $this->name) {
+        if (!$this->id || !$this->name) {
             return false;
         }
 

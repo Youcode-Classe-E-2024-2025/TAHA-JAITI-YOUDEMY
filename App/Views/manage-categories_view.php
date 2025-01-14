@@ -13,7 +13,7 @@ $categories = (new CategoryController())->getAll();
                 <input type="text" name="name" id="name" class="mt-1 block w-full rounded-sm bg-gray-700 border-gray-600 text-white" required>
             </div>
             <div>
-                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                <button type="submit" class="btn_second">
                     Add Category
                 </button>
             </div>
@@ -41,6 +41,9 @@ $categories = (new CategoryController())->getAll();
                                         class="text-red-400 hover:text-red-300" aria-label="Delete">
                                         Delete
                                     </a>
+                                    <button type="button" id="editCat" class="text-blue-400 hover:text-blue-300" aria-label="Edit">
+                                        Edit
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -50,3 +53,24 @@ $categories = (new CategoryController())->getAll();
         </div>
     </div>
 </main>
+
+<section id="editForm" class="hidden h-screen w-screen fixed flex justify-center items-center bg-black/50 backdrop-blur-lg">
+    <form action="?action=category_update" method="POST" class="bg-gray-800 rounded-lg shadow-md p-6 mb-8 w-1/2">
+        <input type="hidden" name="csrf" value="<?= genToken() ?>">
+        <input type="hidden" name="id" id="idInput">
+        <div class="grid grid-cols-1 gap-6">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-300">Category Name</label>
+                <input type="text" name="name" id="name" class="mt-1 block w-full rounded-sm bg-gray-700 border-gray-600 text-white" required>
+            </div>
+            <div class="flex justify-between w-full">
+                <button type="submit" class="btn_second">
+                    Update Category
+                </button>
+                <button id="closeEdit" type="button" class="btn_second bg-red-500 hover:bg-red-700">
+                        Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</section>

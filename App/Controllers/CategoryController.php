@@ -22,7 +22,9 @@ class CategoryController extends Controller
             $this->redirect('/manage-categories');
         }
 
-        $name = trim($_POST['name']);
+        $data = $this->getData();
+
+        $name = $data['name'];
 
         if (empty($name)) {
             $_SESSION['error'] = 'Category name is required.';
@@ -47,8 +49,10 @@ class CategoryController extends Controller
             $this->redirect('/manage-categories');
         }
 
-        $id = intval($_POST['id']);
-        $name = trim($_POST['name']);
+        $data = $this->getData();
+
+        $id = $data['id'];
+        $name = $data['name'];
 
         if (empty($id) || empty($name)) {
             $_SESSION['error'] = 'Category ID and name are required.';
