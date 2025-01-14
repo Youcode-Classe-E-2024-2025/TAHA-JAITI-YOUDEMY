@@ -40,4 +40,9 @@ class User{
         return $this->pdo->fetch($sql, [":email" => $this->email]);
     }
 
+    public function getPending(){
+        $sql = "SELECT * FROM users WHERE status = 'pending'";
+        return $this->pdo->fetchAll($sql);
+    }
+
 }

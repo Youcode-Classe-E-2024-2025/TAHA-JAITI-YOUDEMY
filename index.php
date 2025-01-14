@@ -16,7 +16,7 @@ $router->action();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/output.css">
+    <link rel="stylesheet" href="/src/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Youdemy</title>
 </head>
@@ -35,7 +35,7 @@ $router->action();
     ?>
 
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>
