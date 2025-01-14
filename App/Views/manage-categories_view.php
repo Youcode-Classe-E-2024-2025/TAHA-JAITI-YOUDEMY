@@ -54,7 +54,7 @@ $categories = (new CategoryController())->getAll();
     </div>
 </main>
 
-<section id="editForm" class="hidden h-screen w-screen fixed flex justify-center items-center bg-black/50 backdrop-blur-lg">
+<section id="editForm" class="hidden h-screen w-screen fixed justify-center items-center bg-black/50 backdrop-blur-lg">
     <form action="?action=category_update" method="POST" class="bg-gray-800 rounded-lg shadow-md p-6 mb-8 w-1/2">
         <input type="hidden" name="csrf" value="<?= genToken() ?>">
         <input type="hidden" name="id" id="idInput">

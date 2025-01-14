@@ -17,6 +17,7 @@ const editCat = () => {
                 idInput.value = id.textContent;
 
                 editForm.classList.toggle('hidden');
+                editForm.classList.toggle('flex');
 
                 const close = editForm.querySelector('#closeEdit');
 
@@ -24,6 +25,7 @@ const editCat = () => {
                     e.preventDefault();
 
                     editForm.classList.toggle('hidden');
+                    editForm.classList.toggle('flex');
                 })
             })
         })
