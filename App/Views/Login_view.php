@@ -1,5 +1,3 @@
-<?php dd($_SESSION) ?>
-
 <div class="h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="grid gap-8 w-full max-w-xl">
         <!-- Login Form -->

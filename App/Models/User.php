@@ -8,6 +8,7 @@ class User{
     private string $email;
     private string $password;
     private string $role;
+    private string $status;
 
     public function __construct(){
         $this->pdo = new Database();
@@ -22,6 +23,7 @@ class User{
         $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
     public function setRole(string $role) {$this->role = $role;}
+    public function setStatus(string $status) {$this->status = $status;}
 
     public function create(){
         $sql = 'INSERT INTO users(name, email, password, role) VALUES (:name, :email, :pass, :role)';
@@ -40,9 +42,27 @@ class User{
         return $this->pdo->fetch($sql, [":email" => $this->email]);
     }
 
-    public function getPending(){
-        $sql = "SELECT * FROM users WHERE status = 'pending'";
+    public function getAll(){
+        $sql = "SELECT * FROM users WHERE role != 'admin'";
         return $this->pdo->fetchAll($sql);
+    }
+
+    public function updateStatus(){
+        $sql = "UPDATE users SET status = :status WHERE id = :id";
+        $stmt = $this->pdo->execute($sql, [
+            ':status' => $this->status,
+            ':id' => $this->id
+        ]);
+
+        return (bool) $stmt;
+    }
+
+    public function delete(){
+        $sql = "DELETE FROM users WHERE id = :id";
+        $stmt = $this->pdo->execute($sql, [
+            ':id' => $this->id
+        ]);
+        return (bool) $stmt;
     }
 
 }
