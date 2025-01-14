@@ -15,11 +15,13 @@ class AuthController extends Controller
                 $_SESSION['error'] = 'Invalid CSRF token.';
                 $this->redirect('/signup');
             }
+            
+            $data = $this->getData();
 
-            $name = $_POST['username'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $role = $_POST['role'];
+            $name = $data['username'];
+            $email = $data['email'];
+            $password = $data['password'];
+            $role = $data['role'];
 
             if (empty($name) || empty($email) || empty($password) || empty($role)) {
                 $_SESSION['error'] = 'All fields are required.';
@@ -57,8 +59,10 @@ class AuthController extends Controller
                 $this->redirect('/login');
             }
 
-            $email = $_POST['email'];
-            $password = $_POST['password'];
+            $data = $this->getData();
+
+            $email = $data['email'];
+            $password = $data['password'];
 
             if (empty($email) || empty($password)) {
                 $_SESSION['error'] = 'All fields are required.';

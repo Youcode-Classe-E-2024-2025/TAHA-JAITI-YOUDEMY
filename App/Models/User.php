@@ -15,7 +15,9 @@ class User{
 
     public function setId(int $id) {$this->id = $id;}
     public function setName(string $name) {$this->name = $name;}
-    public function setEmail(string $email) {$this->email = $email;}
+    public function setEmail(string $email) {
+        $this->email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    }
     public function setPassword(string $password) {
         $this->password = password_hash($password, PASSWORD_BCRYPT);
     }

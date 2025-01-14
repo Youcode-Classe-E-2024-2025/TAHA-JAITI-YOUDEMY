@@ -20,4 +20,19 @@ class Controller
         }
         return false;
     }
+
+    protected function getData(){
+        $data = [];
+
+        foreach ($_POST as $key => $value){
+            if ($key === 'csrf'){
+                continue;
+            }
+            $datum = is_string($value) ? $this->secure($value) : $value;
+
+            $data[$key] = $datum;
+        }
+
+        return $data;
+    }
 }
