@@ -78,4 +78,13 @@ class Category
         $sql = "DELETE FROM categories WHERE id = :id";
         return $this->pdo->execute($sql, [':id' => $this->id]);
     }
+
+    public function update(): bool {
+        if (!$this->id || $this->name) {
+            return false;
+        }
+
+        $sql = "UPDATE categories SET name = :name WHERE id = :id";
+        return $this->pdo->execute($sql, [':name' => $this->name, ':id' => $this->id]);
+    }
 }
