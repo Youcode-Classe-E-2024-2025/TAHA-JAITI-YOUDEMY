@@ -134,11 +134,11 @@ class Database
         return $stmt->rowCount();
     }
 
-    public function lastInsertId(): string
+    public function lastInsertId(): int
     {
         if ($this->pdo === null) {
             $this->connect();
         }
-        return $this->pdo->lastInsertId();
+        return intval($this->pdo->lastInsertId());
     }
 }
