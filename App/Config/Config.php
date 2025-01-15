@@ -30,7 +30,8 @@ const DB_SQL = "
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT,
-        content TEXT, -- Can store video/document paths
+        content TEXT, --Wisywig
+        image TEXT, --Image path
         teacher_id INT,
         category_id INT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

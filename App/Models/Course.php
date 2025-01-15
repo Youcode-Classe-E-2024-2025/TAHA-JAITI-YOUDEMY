@@ -7,6 +7,7 @@ class Course
     private string $title;
     private string $description;
     private string $content;
+    private string $image;
     private User $teacher;
     private Category $category;
     private array $tags;
@@ -18,6 +19,7 @@ class Course
         $this->title = '';
         $this->description = '';
         $this->content = '';
+        $this->image = __DIR__ . '/../../Assets/default.webp';
         $this->teacher = new User();
         $this->category = new Category();
         $this->tags = [];
@@ -41,6 +43,10 @@ class Course
     public function getContent(): string
     {
         return $this->content;
+    }
+
+    public function getImage(): string {
+        return $this->image;
     }
 
     public function getTeacher(): User
@@ -78,6 +84,10 @@ class Course
         $this->content = $content;
     }
 
+    public function setImage(string $path): void {
+        $this->image = $path;
+    }
+
     public function setTeacher(User $teacher): void
     {
         $this->teacher = $teacher;
@@ -96,21 +106,23 @@ class Course
     public function save(): bool
     {
         if ($this->id) {
-            $query = "UPDATE courses SET title = :title, description = :description, content = :content, teacher_id = :teacher_id, category_id = :category_id WHERE id = :id";
+            $query = "UPDATE courses SET title = :title, description = :description, content = :content, image = :image, teacher_id = :teacher_id, category_id = :category_id WHERE id = :id";
             $params = [
                 'id' => $this->id,
                 'title' => $this->title,
                 'description' => $this->description,
                 'content' => $this->content,
+                'image' => $this->image,
                 'teacher_id' => $this->teacher->getId(),
                 'category_id' => $this->category->getId(),
             ];
         } else {
-            $query = "INSERT INTO courses (title, description, content, teacher_id, category_id) VALUES (:title, :description, :content, :teacher_id, :category_id)";
+            $query = "INSERT INTO courses (title, description, content, image, teacher_id, category_id) VALUES (:title, :description, :content, :image, :teacher_id, :category_id)";
             $params = [
                 'title' => $this->title,
                 'description' => $this->description,
                 'content' => $this->content,
+                'image' => $this->image,
                 'teacher_id' => $this->teacher->getId(),
                 'category_id' => $this->category->getId(),
             ];
@@ -172,6 +184,7 @@ class Course
         $course->setTitle($data['title']);
         $course->setDescription($data['description']);
         $course->setContent($data['content']);
+        $course->setImage($data['image']);
 
         $teacher = new User();
         $teacher->setId($data['teacher_id']);
@@ -201,6 +214,7 @@ class Course
             $course->setTitle($row['title']);
             $course->setDescription($row['description']);
             $course->setContent($row['content']);
+            $course->setImage($row['image']);
 
             $teacher = new User();
             $teacher->setId($row['teacher_id']);
