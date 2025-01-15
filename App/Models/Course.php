@@ -116,7 +116,34 @@ class Course
             ];
         }
 
-        return $this->pdo->execute($query, $params);
+        $result = $this->pdo->execute($query, $params);
+
+        if ($result && !$this->id){
+            $this->id = $this->pdo->lastInsertId();
+        }
+
+        if ($result){
+            $this->saveTags();
+        }
+
+        return $result;
+    }
+
+    public function saveTags(): void{
+        $this->deleteTags();
+
+        foreach($this->tags as $tag){
+            $courseTag = new CourseTag();
+            $courseTag->setTagId($tag->getId());
+            $courseTag->setCourseId($this->id);
+            $courseTag->add();
+        }
+    }
+
+    public function deleteTags(): void {
+        $courseTag = new CourseTag();
+        $courseTag->setCourseId($this->id);
+        $courseTag->removeAllTags();
     }
 
     public function delete(): bool
@@ -124,6 +151,8 @@ class Course
         if (!$this->id) {
             return false;
         }
+
+        $this->deleteTags();
 
         $query = "DELETE FROM courses WHERE id = :id";
         return $this->pdo->execute($query, ['id' => $this->id]);
@@ -152,6 +181,11 @@ class Course
         $category->setId($data['category_id']);
         $course->setCategory($category);
 
+        $courseTag = new CourseTag();
+        $courseTag->setCourseId($data['id']);
+        $tags = $courseTag->getTagsByCourse();
+        $course->setTags($tags);
+
         return $course;
     }
 
@@ -175,6 +209,11 @@ class Course
             $category = new Category();
             $category->setId($row['category_id']);
             $course->setCategory($category);
+
+            $courseTag = new CourseTag();
+            $courseTag->setCourseId($row['id']);
+            $tags = $courseTag->getTagsByCourse();
+            $course->setTags($tags);
 
             $courses[] = $course;
         }

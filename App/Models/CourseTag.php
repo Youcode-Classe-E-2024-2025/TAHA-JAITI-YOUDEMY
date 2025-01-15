@@ -37,12 +37,12 @@ class CourseTag
         return $this->pdo->execute($sql, [':course_id' => $this->courseId]);
     }
 
-    public function getTagsByCourse(int $courseId): array
+    public function getTagsByCourse(): array
     {
         $sql = "SELECT t.* FROM tags t 
                 JOIN course_tag ct ON t.id = ct.tag_id 
                 WHERE ct.course_id = :course_id";
-        $data = $this->pdo->fetchAll($sql, [':course_id' => $courseId]);
+        $data = $this->pdo->fetchAll($sql, [':course_id' => $this->courseId]);
 
         $tags = [];
         foreach ($data as $tagData) {
