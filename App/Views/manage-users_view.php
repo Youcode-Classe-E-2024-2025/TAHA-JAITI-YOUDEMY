@@ -39,20 +39,24 @@ $users = $users->getAll();
                                 $class = $statusColor[$user['status']] ?? 'bg-gray-100 text-gray-800';
                                 ?>
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <?= $class ?>">
-                                    <?= str_secure($user['status']) ?>
+                                    <?= ucfirst(str_secure($user['status'])) ?>
                                 </span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap"><?= str_secure($user['created_at']) ?></td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
                                 <div class="flex space-x-6">
-                                    <a href="?action=user_approve&id=<?= $user['id'] ?>&csrf=<?= genToken() ?>"
-                                        class="text-green-400 hover:text-green-300" aria-label="Approve">
-                                        Approve
-                                    </a>
-                                    <a href="?action=user_suspend&id=<?= $user['id'] ?>&csrf=<?= genToken() ?>"
-                                        class="text-orange-400 hover:text-orange-300" aria-label="Suspend">
-                                        Suspend
-                                    </a>
+                                    <?php if ($user['status'] !== 'active'): ?>
+
+                                        <a href="?action=user_approve&id=<?= $user['id'] ?>&csrf=<?= genToken() ?>"
+                                            class="text-green-400 hover:text-green-300" aria-label="Approve">
+                                            Approve
+                                        </a>
+                                    <?php elseif ($user['status'] !== 'suspended'): ?>
+                                        <a href="?action=user_suspend&id=<?= $user['id'] ?>&csrf=<?= genToken() ?>"
+                                            class="text-orange-400 hover:text-orange-300" aria-label="Suspend">
+                                            Suspend
+                                        </a>
+                                    <?php endif; ?>
                                     <a href="?action=user_delete&id=<?= $user['id'] ?>&csrf=<?= genToken() ?>"
                                         class="text-red-400 hover:text-red-300" aria-label="Delete">
                                         Delete

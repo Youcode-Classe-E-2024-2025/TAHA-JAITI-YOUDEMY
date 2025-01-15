@@ -116,7 +116,7 @@ class User
 
     public function getAll(): array
     {
-        $sql = "SELECT * FROM users WHERE role != 'admin'";
+        $sql = "SELECT * FROM users WHERE role != 'admin' ORDER BY id ASC";
         return $this->pdo->fetchAll($sql);
     }
 
