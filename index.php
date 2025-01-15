@@ -7,6 +7,14 @@ $router = new Router();
 
 $router->action();
 
+if (isAdminLogged()){
+    $header = '/App/Views/Partials/AdminHeader.php';
+} elseif (isTeacherLogged()){
+    $header = '/App/Views/Partials/AdminHeader.php';
+} else {
+    $header = '/App/Views/Partials/Header.php';
+}
+
 ?>
 
 
@@ -25,13 +33,13 @@ $router->action();
 
     <?php
     //HEADER
-    require_once __DIR__ . '/App/Views/Header.php';
+    require_once __DIR__ . $header;
 
     //VIEWS LOGIC
     $router->view();
 
     //FOOTER
-    require_once __DIR__ . '/App/Views/Footer.php';
+    require_once __DIR__ . '/App/Views/Partials/Footer.php';
     ?>
 
 

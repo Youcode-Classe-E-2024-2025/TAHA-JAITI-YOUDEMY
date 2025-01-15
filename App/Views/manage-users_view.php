@@ -39,7 +39,7 @@ $users = $users->getAll();
                                 $class = $statusColor[$user['status']] ?? 'bg-gray-100 text-gray-800';
                                 ?>
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full <?= $class ?>">
-                                    <?= ucfirst(str_secure($user['status'])) ?>
+                                    <?= str_secure($user['status']) ?>
                                 </span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap"><?= str_secure($user['created_at']) ?></td>

@@ -39,4 +39,4 @@ $isLogged = $_SESSION['user'] ?? null;
     </nav>
 </header>
 
-<?php require_once __DIR__ . '/Helper/Message.php' ?>
+<?php require_once __DIR__ . '/../Helper/Message.php' ?>
