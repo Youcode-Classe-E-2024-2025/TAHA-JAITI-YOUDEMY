@@ -98,7 +98,7 @@ class AuthController extends Controller
 
             switch ($userData['role']) {
                 case 'admin':
-                    $this->redirect('/home');
+                    $this->redirect('/statistics');
                     break;
                 case 'teacher':
                     $this->redirect('/home');
@@ -109,6 +109,7 @@ class AuthController extends Controller
                 default:
                     $_SESSION['error'] = 'Invalid role.';
                     $this->redirect('/login');
+                    session_destroy();
             }
         }
     }
