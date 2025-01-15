@@ -10,7 +10,7 @@ $tags = (new TagController())->getAll();
         <div class="grid grid-cols-1 gap-6">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-300">Tag Names (seperate by , )</label>
-                <input type="text" name="name" id="name" class="mt-1 block w-full rounded-sm bg-gray-700 border-gray-600 text-white" required>
+                <input type="text" name="name" id="name" class="input-field" required>
             </div>
             <div>
                 <button type="submit" class="btn_second">

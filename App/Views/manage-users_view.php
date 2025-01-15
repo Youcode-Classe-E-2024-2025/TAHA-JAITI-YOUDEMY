@@ -1,7 +1,5 @@
 <?php
-$users = new UserController();
-$users = $users->getAll();
-
+$users = (new UserController())->getAll();
 ?>
 
 <main class="flex-grow container mx-auto px-4 py-8">

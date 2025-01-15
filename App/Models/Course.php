@@ -9,6 +9,7 @@ class Course
     private string $content;
     private User $teacher;
     private Category $category;
+    private array $tags;
 
     public function __construct()
     {
@@ -19,6 +20,7 @@ class Course
         $this->content = '';
         $this->teacher = new User();
         $this->category = new Category();
+        $this->tags = [];
     }
 
     public function getId(): ?int
@@ -51,6 +53,11 @@ class Course
         return $this->category;
     }
 
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
     public function setId(int $id): void
     {
         $this->id = $id;
@@ -79,6 +86,11 @@ class Course
     public function setCategory(Category $category): void
     {
         $this->category = $category;
+    }
+
+    public function setTags(array $tags): void
+    {
+        $this->tags = $tags;
     }
 
     public function save(): bool
