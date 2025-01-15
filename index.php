@@ -10,7 +10,7 @@ $router->action();
 if (isAdminLogged()){
     $header = '/App/Views/Partials/AdminHeader.php';
 } elseif (isTeacherLogged()){
-    $header = '/App/Views/Partials/AdminHeader.php';
+    $header = '/App/Views/Partials/TeacherHeader.php';
 } else {
     $header = '/App/Views/Partials/Header.php';
 }
@@ -41,7 +41,6 @@ if (isAdminLogged()){
     //FOOTER
     require_once __DIR__ . '/App/Views/Partials/Footer.php';
     ?>
-
 
     <script type="module" src="/src/main.js"></script>
 </body>
