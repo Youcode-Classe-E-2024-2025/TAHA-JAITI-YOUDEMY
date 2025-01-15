@@ -20,7 +20,7 @@ $courses = (new CourseController())->getAll();
             <?php foreach ($courses as $course): ?>
                 <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden h-full flex flex-col">
                     <!-- Image -->
-                    <img class="w-full h-48 object-cover" src="https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png" alt="Course Image">
+                    <img class="w-full h-48 object-cover" src="<?= str_secure($course->getImage()) ?>" alt="Course Image">
 
                     <!-- Details -->
                     <div class="p-4 flex flex-col flex-grow">

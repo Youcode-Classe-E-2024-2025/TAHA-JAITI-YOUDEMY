@@ -13,6 +13,22 @@ class CourseController extends Controller {
         return $courses;
     }
 
+    public function create(){
+        if (!$this->validateToken($_POST['csrf'])) {
+            $_SESSION['error'] = 'Invalid CSRF token.';
+            $this->redirect('/manage-courses');
+        }
+
+        $data = $this->getData();
+
+        $title = $data['title'];
+        $description = $data['description'];
+        $content = $data['content'];
+        $image = $data['image'];
+        $teacher = $_SESSION['user']['role'] === 'teacher' ? $_SESSION['user']['id'] : 1;
+
+    }
+
     public function delete(){
         if (!$this->validateToken($_GET['csrf'])) {
             $_SESSION['error'] = 'Invalid CSRF token.';
