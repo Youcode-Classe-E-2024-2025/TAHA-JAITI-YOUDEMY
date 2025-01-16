@@ -132,6 +132,7 @@ class Course
 
         if ($result && !$this->id){
             $this->id = $this->pdo->lastInsertId();
+            return $result;
         }
 
         if ($result){
@@ -184,7 +185,7 @@ class Course
         $course->setTitle($data['title']);
         $course->setDescription($data['description']);
         $course->setContent($data['content']);
-        $course->setImage($data['image']);
+        $course->setImage($data['image'] ?? __DIR__ . '/../../Assets/default.webp');
 
         $teacher = new User();
         $teacher->setId($data['teacher_id']);
@@ -214,7 +215,7 @@ class Course
             $course->setTitle($row['title']);
             $course->setDescription($row['description']);
             $course->setContent($row['content']);
-            $course->setImage($row['image']);
+            $course->setImage($row['image'] ?? __DIR__ . '../../Assets/default.webp');
 
             $teacher = new User();
             $teacher->setId($row['teacher_id']);
