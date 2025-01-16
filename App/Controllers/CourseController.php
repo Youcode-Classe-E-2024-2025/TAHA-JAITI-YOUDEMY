@@ -28,7 +28,7 @@ class CourseController extends Controller
         $title = $data['title'] ?? '';
         $description = $data['description'] ?? '';
         $content = $data['content'] ?? '';
-        $image = $_FILES['image'] ?? '';
+        $image = $_FILES['image'] ?? null;
         $teacher = $_SESSION['user']['role'] === 'teacher' ? $_SESSION['user']['id'] : 1;
         $category = $data['category_id'] ?? '';
         $tags = $data['tags'] ?? [];
@@ -39,20 +39,22 @@ class CourseController extends Controller
         }
 
         $imgPath = null;
-
         if ($image && $image['error'] === UPLOAD_ERR_OK) {
-            $dir = __DIR__ . '/../../Assets';
+            $dir = '/Assets/';
 
-            if (!mkdir($dir)) {
-                mkdir($dir, 0755, true);
+            if (!is_dir($dir)) {
+                if (!mkdir($dir, 0755, true)) {
+                    $_SESSION['error'] = 'Failed to create upload directory.';
+                    $this->redirect('/manage-courses');
+                }
             }
 
-            $imgName = uniqid() . '_' . basename($image);
+            $imgName = uniqid() . '_' . basename($image['name']);
             $imgPath = $dir . $imgName;
 
             if (!move_uploaded_file($image['tmp_name'], $imgPath)) {
-                $_SESSION['error'] = 'Error uploading the file';
-                $this->redirect('/managae-courses');
+                $_SESSION['error'] = 'Failed to upload the file.';
+                $this->redirect('/manage-courses');
             }
         }
 
@@ -71,10 +73,9 @@ class CourseController extends Controller
         $course->setCategory($cats);
 
         if (!$course->save()) {
-            $_SESSION['error'] = 'Failed to create course';
+            $_SESSION['error'] = 'Failed to create course.';
             $this->redirect('/manage-courses');
         }
-
 
         $tagArray = [];
         foreach ($tags as $tag) {
@@ -82,12 +83,9 @@ class CourseController extends Controller
             $newTag->setId(intval($tag));
             $tagArray[] = $newTag;
         }
-
         $course->setTags($tagArray);
-        if (!$course->saveTags()) {
-            $_SESSION['error'] = 'Failed to save tags';
-            $this->redirect('/manage-courses');
-        }
+        $course->saveTags();
+        
 
         $_SESSION['success'] = 'Course created successfully.';
         $this->redirect('/manage-courses');

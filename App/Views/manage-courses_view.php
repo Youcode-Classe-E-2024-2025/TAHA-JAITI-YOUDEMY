@@ -3,6 +3,7 @@ $courses = (new CourseController())->getAll();
 $categories = (new CategoryController())->getAll();
 $tags = (new TagController())->getAll();
 
+
 ?>
 
 <main class="flex-grow container mx-auto px-4 py-8">
@@ -23,7 +24,7 @@ $tags = (new TagController())->getAll();
             <?php foreach ($courses as $course): ?>
                 <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden h-full flex flex-col">
                     <!-- Image -->
-                    <img class="w-full h-48 object-cover" src="<?= str_secure($course->getImage()) ?>" alt="Course Image">
+                    <img class="w-full h-48 object-cover" src="<?= $course->getImage() ? $course->getImage() : '/Assets/default.webp' ?>" alt="Course Image">
 
                     <!-- Details -->
                     <div class="p-4 flex flex-col flex-grow">

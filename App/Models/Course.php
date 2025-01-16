@@ -7,7 +7,7 @@ class Course
     private string $title;
     private string $description;
     private string $content;
-    private string $image;
+    private ?string $image;
     private User $teacher;
     private Category $category;
     private array $tags;
@@ -19,7 +19,7 @@ class Course
         $this->title = '';
         $this->description = '';
         $this->content = '';
-        $this->image = __DIR__ . '/../../Assets/default.webp';
+        $this->image = null;
         $this->teacher = new User();
         $this->category = new Category();
         $this->tags = [];
@@ -84,7 +84,7 @@ class Course
         $this->content = $content;
     }
 
-    public function setImage(string $path): void {
+    public function setImage(?string $path): void {
         $this->image = $path;
     }
 
