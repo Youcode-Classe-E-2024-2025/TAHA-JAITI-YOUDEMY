@@ -18,17 +18,6 @@ class Database
         $this->initDatabase();
     }
 
-    public function __call($method, $args)
-    {
-        if ($this->pdo === null) {
-            $this->connect();
-        }
-
-        if (method_exists($this->pdo, $method)) {
-            return call_user_func_array([$this->pdo, $method], $args);
-        }
-    }
-
     public function initDatabase(): void
     {
         $dsn = "pgsql:host=" . $this->host . ";port=" . $this->port;
