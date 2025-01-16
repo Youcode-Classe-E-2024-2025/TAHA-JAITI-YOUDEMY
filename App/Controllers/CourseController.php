@@ -40,22 +40,17 @@ class CourseController extends Controller
 
         $imgPath = null;
         if ($image && $image['error'] === UPLOAD_ERR_OK) {
-            $dir = '/Assets/';
-
-            if (!is_dir($dir)) {
-                if (!mkdir($dir, 0755, true)) {
-                    $_SESSION['error'] = 'Failed to create upload directory.';
-                    $this->redirect('/manage-courses');
-                }
-            }
+            $dir = __DIR__ . '/../../Assets';
 
             $imgName = uniqid() . '_' . basename($image['name']);
-            $imgPath = $dir . $imgName;
+            $imgPath = $dir . '/' . $imgName;
 
             if (!move_uploaded_file($image['tmp_name'], $imgPath)) {
                 $_SESSION['error'] = 'Failed to upload the file.';
                 $this->redirect('/manage-courses');
             }
+
+            $imgPath = '/Assets/' . $imgName;
         }
 
         $course = $this->course;

@@ -24,7 +24,7 @@ $tags = (new TagController())->getAll();
             <?php foreach ($courses as $course): ?>
                 <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden h-full flex flex-col">
                     <!-- Image -->
-                    <img class="w-full h-48 object-cover" src="<?= $course->getImage() ? $course->getImage() : '/Assets/default.webp' ?>" alt="Course Image">
+                    <img class="w-full h-48 object-fit" src="<?= $course->getImage() ? $course->getImage() : '/Assets/default.webp' ?>" alt="Course Image">
 
                     <!-- Details -->
                     <div class="p-4 flex flex-col flex-grow">
@@ -43,7 +43,7 @@ $tags = (new TagController())->getAll();
 
                         <!-- Category -->
                         <p class="text-sm text-gray-400">
-                            <span class="font-semibold">Category:</span> <?= str_secure($course->getCategory()->getName()) ?>
+                            <span class="font-semibold">Category:</span> <?= $course->getCategory()->getName() ?>
                         </p>
                     </div>
 
