@@ -9,13 +9,13 @@ class CourseController extends Controller
     {
         $role = Session::getRole();
         switch ($role) {
-            case 'Admin':
+            case 'admin':
                 $this->course = new AdminCourse();
                 break;
-            case 'Teacher':
+            case 'teacher':
                 $this->course = new TeacherCourse();
                 break;
-            case 'Student':
+            case 'student':
                 $this->course = new StudentCourse();
                 break;
             default:

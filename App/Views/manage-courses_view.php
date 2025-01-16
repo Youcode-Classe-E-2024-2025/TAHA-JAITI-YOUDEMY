@@ -1,7 +1,7 @@
 <?php
-// $courses = (new CourseController())->getAll();
-// $categories = (new CategoryController())->getAll();
-// $tags = (new TagController())->getAll();
+$courses = (new CourseController())->getAll();
+$categories = (new CategoryController())->getAll();
+$tags = (new TagController())->getAll();
 
 ?>
 
