@@ -9,7 +9,7 @@ $isLogged = $_SESSION['user'] ?? null;
         
         <!-- Desktop Navigation -->
         <nav class="hidden md:flex space-x-6 justify-center items-center">
-            <a href="#" class="hover:text-blue-400 transition-colors">Browse</a>
+            <a href="/catalog" class="hover:text-blue-400 transition-colors">Catalog</a>
             <?php if ($isLogged): ?>
                 <a href="?action=auth_logout" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-colors">Log out</a>
             <?php else: ?>
@@ -29,7 +29,7 @@ $isLogged = $_SESSION['user'] ?? null;
         id="mobileNav" 
         class="hidden bg-gray-800 h-fit fixed flex-col items-center justify-center w-full border-t border-gray-700 px-4 py-6 space-y-4"
     >
-        <a href="#" class="block text-gray-300 hover:text-blue-400 transition-colors">Browse</a>
+        <a href="/catalog" class="block text-gray-300 hover:text-blue-400 transition-colors">Catalog</a>
         <?php if ($isLogged): ?>
             <a href="?action=auth_logout" class="w-full bg-blue-600 hover:bg-blue-700 text-center px-4 py-2 rounded transition-colors">Log out</a>
         <?php else: ?>

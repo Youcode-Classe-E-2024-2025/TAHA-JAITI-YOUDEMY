@@ -104,7 +104,7 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function fetch(string $sql, array $params)
+    public function fetch(string $sql, array $params = [])
     {
         $stmt = $this->prepareExecute($sql, $params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);

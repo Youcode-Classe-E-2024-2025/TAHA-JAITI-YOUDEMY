@@ -15,18 +15,27 @@ class CourseController extends Controller
             case 'teacher':
                 $this->course = new TeacherCourse();
                 break;
-            case 'student':
+            default:
                 $this->course = new StudentCourse();
                 break;
-            default:
-                $_SESSION['error'] = 'Invalid role';
-                $this->redirect('/login');
         }
     }
 
     public function getAll()
-    {
+    {   
+        if ($this->course instanceof StudentCourse){
+            $page = intval($_GET['page']) ?? 1;
+
+            $result = $this->course->getAll($page);
+
+            return [
+                'courses' => $result['courses'],
+                'pagination' => $result['pagination']
+            ];
+        }
+
         $courses = $this->course->getAll();
+        
         return $courses;
     }
 
@@ -106,7 +115,7 @@ class CourseController extends Controller
             $_SESSION['error'] = 'Invalid CSRF token.';
             $this->redirect('/manage-courses');
         }
-        
+
 
         $id = intval($_GET['id']);
 
