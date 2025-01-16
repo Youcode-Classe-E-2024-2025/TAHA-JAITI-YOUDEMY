@@ -17,6 +17,13 @@ class UserController extends Controller
         return $users;
     }
 
+    public function getAllTeachers()
+    {
+        $users = $this->userModel->getAllTeachers();
+
+        return $users;
+    }
+
     public function approve()
     {
         if (!$this->validateToken($_GET['csrf'])) {

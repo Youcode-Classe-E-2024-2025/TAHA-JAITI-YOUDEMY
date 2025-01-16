@@ -3,6 +3,10 @@ $courses = (new CourseController())->getAll();
 $categories = (new CategoryController())->getAll();
 $tags = (new TagController())->getAll();
 
+if (Session::isAdminLogged()) {
+    $teachers = (new UserController())->getAllTeachers();
+}
+
 ?>
 
 <main class="flex-grow container mx-auto px-4 py-8">
@@ -62,6 +66,11 @@ $tags = (new TagController())->getAll();
 
 <div id="addContainer" class="h-screen w-screen fixed inset-0 hidden justify-center items-center bg-black/50 backdrop-blur-md z-50">
     <form id="addForm" action="?action=course_create" method="POST" enctype="multipart/form-data" class="bg-gray-800 rounded-sm shadow-md p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center">
+            <h2 class="text-3xl font-bold">Add a new course</h2>
+            <span id="closeBtn" class="icon-[mdi--close] text-4xl text-gray-400 cursor-pointer"></span>
+        </div>
+
         <input type="hidden" name="csrf" value="<?= genToken() ?>">
 
         <!-- Title -->
@@ -86,13 +95,10 @@ $tags = (new TagController())->getAll();
         <div class="mb-6">
             <label for="image" class="block text-sm font-medium text-gray-300 mb-2">Image</label>
             <div class="flex items-center justify-center w-full">
-                <label for="image" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-700 hover:bg-gray-600">
+                <label for="image" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-600 border-dashed rounded-sm cursor-pointer bg-gray-700 hover:bg-gray-600">
                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                        <svg class="w-8 h-8 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                        </svg>
-                        <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                        <p class="text-xs text-gray-400">PNG, JPG, GIF (MAX. 800x400px)</p>
+                        <span class="icon-[mdi--tray-upload] text-4xl text-gray-400"></span>
+                        <p class="mb-2 text-sm text-gray-400"><span class="font-semibold">Click to upload</p>
                     </div>
                     <input type="file" name="image" id="image" class="hidden" />
                 </label>
@@ -119,6 +125,17 @@ $tags = (new TagController())->getAll();
             </select>
         </div>
 
+        <?php if (Session::isAdminLogged()): ?>
+            <div class="mb-6">
+                <label for="teacher_id" class="block text-sm font-medium text-gray-300 mb-2">Teacher</label>
+                <select name="teacher_id" id="teacher_id" class="input-field" required>
+                    <?php foreach ($teachers as $teacher): ?>
+                        <option value="<?= $teacher['id'] ?>"><?= str_secure($teacher['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        <?php endif; ?>
+
         <!-- Submit -->
         <div class="mt-6">
             <button type="submit" class="btn_second w-full">Create Course</button>
@@ -130,14 +147,16 @@ $tags = (new TagController())->getAll();
     const formContainer = document.getElementById('addContainer');
     const form = document.getElementById('addForm');
     const btn = document.getElementById('addBtn');
+    const close = document.getElementById('closeBtn');
 
-    if (btn && form && formContainer) {
+    if (btn && form && formContainer && close) {
         const toggle = () => {
             formContainer.classList.toggle('hidden');
             formContainer.classList.toggle('flex');
         };
 
         btn.addEventListener('click', toggle);
+        close.addEventListener('click', toggle);
 
         formContainer.addEventListener('click', (e) => {
             if (e.target === formContainer) {

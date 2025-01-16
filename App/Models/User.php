@@ -120,6 +120,11 @@ class User
         return $this->pdo->fetchAll($sql);
     }
 
+    public function getAllTeachers(): array{
+        $sql = "SELECT id, name FROM users WHERE role = 'teacher'";
+        return $this->pdo->fetchAll($sql);
+    }
+
     public function updateStatus(): bool
     {
         if (empty($this->id) || empty($this->status)) {
