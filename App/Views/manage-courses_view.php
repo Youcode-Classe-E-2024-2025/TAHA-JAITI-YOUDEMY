@@ -55,11 +55,12 @@ if (Session::isAdminLogged()) {
                     </div>
 
                     <!-- Buttons -->
-                    <div class="p-4 border-t border-gray-700">
+                    <div class="p-4 border-t border-gray-700 flex justify-between items-center">
                         <div class="flex space-x-4">
                             <a href="?action=course_edit&id=<?= $course->getId() ?>" class="text-blue-400 hover:text-blue-300">Edit</a>
                             <a href="?action=course_delete&id=<?= $course->getId() ?>&csrf=<?= genToken() ?>" class="text-red-400 hover:text-red-300">Delete</a>
                         </div>
+                        <span class="text-sm text-gray-400"><?= $course->getTeacher()->getById()['name']?></span>
                     </div>
                 </div>
             <?php endforeach; ?>
