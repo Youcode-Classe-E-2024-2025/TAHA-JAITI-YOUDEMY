@@ -25,6 +25,7 @@ if (Session::isAdminLogged()){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/output.css">
+    <script src="/lib/tinymce/tinymce.min.js"></script>
     <title>Youdemy</title>
 </head>
 

@@ -106,6 +106,7 @@ class CourseController extends Controller
             $_SESSION['error'] = 'Invalid CSRF token.';
             $this->redirect('/manage-courses');
         }
+        
 
         $id = intval($_GET['id']);
 

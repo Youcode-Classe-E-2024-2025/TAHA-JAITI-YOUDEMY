@@ -70,7 +70,7 @@ class TeacherCourse extends Course
     }
 
     public function getById(): Course|null {
-        $query = "SELECT * FROM courses WHERE id = :id AND teahcer_id = :t_id";
+        $query = "SELECT * FROM courses WHERE id = :id AND teacher_id = :t_id";
         $data = $this->pdo->fetch($query, ['id' => $this->id, 't_id' => Session::getId()]);
 
         if (!$data) {
