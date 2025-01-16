@@ -7,7 +7,21 @@ class CourseController extends Controller
 
     public function __construct()
     {
-        $this->course = new Course();
+        $role = Session::getRole();
+        switch ($role) {
+            case 'Admin':
+                $this->course = new AdminCourse();
+                break;
+            case 'Teacher':
+                $this->course = new TeacherCourse();
+                break;
+            case 'Student':
+                $this->course = new StudentCourse();
+                break;
+            default:
+                $_SESSION['error'] = 'Invalid role';
+                $this->redirect('/login');
+        }
     }
 
     public function getAll()
@@ -80,7 +94,7 @@ class CourseController extends Controller
         }
         $course->setTags($tagArray);
         $course->saveTags();
-        
+
 
         $_SESSION['success'] = 'Course created successfully.';
         $this->redirect('/manage-courses');

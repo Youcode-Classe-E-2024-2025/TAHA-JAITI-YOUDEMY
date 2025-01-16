@@ -7,9 +7,9 @@ $router = new Router();
 
 $router->action();
 
-if (isAdminLogged()){
+if (Session::isAdminLogged()){
     $header = '/App/Views/Partials/AdminHeader.php';
-} elseif (isTeacherLogged()){
+} elseif (Session::isTeacherLogged()){
     $header = '/App/Views/Partials/TeacherHeader.php';
 } else {
     $header = '/App/Views/Partials/Header.php';
