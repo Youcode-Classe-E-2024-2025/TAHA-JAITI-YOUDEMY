@@ -47,7 +47,7 @@ $pagination = $data['pagination'];
                         </div>
 
                         <!-- Footer -->
-                        <div class="pt-4 border-t border-gray-700">
+                        <div class="pt-4 border-t border-gray-700 space-y-2">
                             <div class="flex gap-4">
                                 <a href="/course?id=<?= $course->getId() ?>"
                                     class="btn_second w-full">
@@ -56,7 +56,7 @@ $pagination = $data['pagination'];
                             </div>
                             <div class="flex items-center gap-2 text-sm text-gray-400">
                                 <span class="icon-[mdi--account-outline]"></span>
-                                <?= $course->getTeacher()->getById()->getName() ?>
+                                <?= ucfirst($course->getTeacher()->getById()['name'] ) ?>
                             </div>
                         </div>
                     </div>
