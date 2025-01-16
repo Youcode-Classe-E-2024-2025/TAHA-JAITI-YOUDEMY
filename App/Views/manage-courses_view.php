@@ -10,7 +10,7 @@ $tags = (new TagController())->getAll();
 
     <!-- Add Button -->
     <div class="my-6">
-        <a href="?action=course_save" class="btn_second">Add Course</a>
+        <button id="addBtn" class="btn_second">Add Course</button>
     </div>
 
     <!-- Container -->
@@ -60,7 +60,7 @@ $tags = (new TagController())->getAll();
     <?php endif; ?>
 </main>
 
-<div id="addContainer" class="h-screen w-screen fixed inset-0 flex justify-center items-center bg-black/50 backdrop-blur-md z-50">
+<div id="addContainer" class="h-screen w-screen fixed inset-0 hidden justify-center items-center bg-black/50 backdrop-blur-md z-50">
     <form id="addForm" action="?action=course_create" method="POST" enctype="multipart/form-data" class="bg-gray-800 rounded-sm shadow-md p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <input type="hidden" name="csrf" value="<?= genToken() ?>">
 
@@ -129,6 +129,24 @@ $tags = (new TagController())->getAll();
 <script>
     const formContainer = document.getElementById('addContainer');
     const form = document.getElementById('addForm');
+    const btn = document.getElementById('addBtn');
 
+    if (btn && form && formContainer) {
+        const toggle = () => {
+            formContainer.classList.toggle('hidden');
+            formContainer.classList.toggle('flex');
+        };
 
+        btn.addEventListener('click', toggle);
+
+        formContainer.addEventListener('click', (e) => {
+            if (e.target === formContainer) {
+                toggle();
+            }
+        });
+
+        form.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    }
 </script>
