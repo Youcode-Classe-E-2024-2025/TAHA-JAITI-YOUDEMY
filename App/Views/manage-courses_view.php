@@ -40,7 +40,7 @@ if (Session::isAdminLogged()) {
                         <!-- Tags -->
                         <div class="flex flex-wrap gap-2 mb-4">
                             <?php foreach ($course->getTags() as $tag): ?>
-                                <span class="bg-gray-700 text-gray-300 text-sm px-2 py-1 rounded"><?= str_secure($tag->getName()) ?></span>
+                                <span class="bg-yellow-900 text-yellow-300 text-sm px-2 py-1 rounded">#<?= str_secure($tag->getName()) ?></span>
                             <?php endforeach; ?>
                         </div>
 
@@ -50,12 +50,15 @@ if (Session::isAdminLogged()) {
                         </p>
                     </div>
 
+                    <div class="p-4 border-t border-gray-700">
+                        <p class="text-green-400">Enrollments:</p>
+                    </div>
+
                     <!-- Buttons -->
                     <div class="p-4 border-t border-gray-700">
                         <div class="flex space-x-4">
                             <a href="?action=course_edit&id=<?= $course->getId() ?>" class="text-blue-400 hover:text-blue-300">Edit</a>
                             <a href="?action=course_delete&id=<?= $course->getId() ?>&csrf=<?= genToken() ?>" class="text-red-400 hover:text-red-300">Delete</a>
-                            <a href="/course_enrolls?id=<?= $course->getId() ?>" class="text-green-400 hover:text-green-300">Enrollments</a>
                         </div>
                     </div>
                 </div>
