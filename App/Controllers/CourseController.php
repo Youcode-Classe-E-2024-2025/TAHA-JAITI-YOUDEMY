@@ -24,7 +24,7 @@ class CourseController extends Controller
     public function getAll()
     {   
         if ($this->course instanceof StudentCourse){
-            $page = intval($_GET['page']) ?? 1;
+            $page = intval($_GET['page'] ?? 1);
 
             $result = $this->course->getAll($page);
 

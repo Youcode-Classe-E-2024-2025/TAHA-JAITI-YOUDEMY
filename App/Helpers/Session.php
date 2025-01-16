@@ -19,7 +19,7 @@ class Session{
         if (isset($_SESSION['user'])){
             return $_SESSION['user']['role'];
         }
-        return null;
+        return 'visitor';
     }
 
     public static function getId(): int{
