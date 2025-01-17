@@ -31,7 +31,15 @@ class Router
             $uri = empty($uri[0]) ? $this->defaultView : $uri[0];
 
             $view = ucfirst(strtolower($uri));
+
+            if (isset($_GET['p'])){
+                $view = explode('?', $view);
+                $view = $view[0];
+            }
+
             $viewFile = $this->viewDirectory . $view . '_view.php';
+
+            dd($view);
 
             if (file_exists($viewFile)) {
                 require_once $viewFile;

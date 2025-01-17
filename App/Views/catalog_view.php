@@ -2,6 +2,8 @@
 $data = (new CourseController())->getAll();
 $courses = $data['courses'];
 $pagination = $data['pagination'];
+
+dd($pagination);
 ?>
 
 <main class="container mx-auto px-4 py-8">
@@ -56,12 +58,27 @@ $pagination = $data['pagination'];
                             </div>
                             <div class="flex items-center gap-2 text-sm text-gray-400">
                                 <span class="icon-[mdi--account-outline]"></span>
-                                <?= ucfirst($course->getTeacher()->getById()['name'] ) ?>
+                                <?= ucfirst($course->getTeacher()->getById()['name']) ?>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+
+    <!-- Pagination -->
+    <div class="mt-8 flex justify-center space-x-4">
+        <?php if ($pagination['page'] > 1): ?>
+            <a href="/catalog?p=<?= $pagination['page'] - 1 ?>" class="btn_second"><</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $pagination['total_pages']; $i++): ?>
+            <a href="/catalog?p=<?= $i ?>" class="btn_second <?= $i === $pagination['page'] ? 'bg-blue-500' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if ($pagination['page'] < $pagination['total_pages']): ?>
+            <a href="/catalog?p=<?= $pagination['page'] + 1 ?>" class="btn_second">></a>
         <?php endif; ?>
     </div>
 </main>
