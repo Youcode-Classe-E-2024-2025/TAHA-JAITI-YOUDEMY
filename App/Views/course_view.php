@@ -1,48 +1,66 @@
-<main class="container mx-auto px-4 py-8">
-    <!-- Course Details -->
-    <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
-        <!-- Course Image -->
-        <img src="/Assets/course1.webp" alt="Course Image" class="w-full h-64 object-cover">
+<?php
+$course = (new CourseController())->getById();
+?>
+<main class="h-full w-full flex justify-center items-center bg-gray-900">
+    <div class="container mx-auto px-4 py-8 lg:py-12 max-w-6xl">
+        <div class="bg-gray-800/90 rounded-sm shadow-2xl overflow-hidden transform transition-all hover:shadow-3xl">
+            <div class="flex flex-col md:flex-row">
+                <!-- Image Section -->
+                <div class="relative w-full md:w-2/5 h-[20rem] md:h-auto">
+                    <img
+                        src="<?= $course->getImage() ? $course->getImage() : '/Assets/default.webp' ?>"
+                        alt="<?= str_secure($course->getTitle()) ?>"
+                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                    >
+                    <div class="absolute inset-0 bg-gradient-to-t from-gray-900/95 via-gray-900/60 to-transparent"></div>
+                </div>
 
-        <!-- Course Content -->
-        <div class="p-6">
-            <!-- Title -->
-            <h2 class="text-2xl font-bold mb-4">Course Title</h2>
+                <!-- Content -->
+                <div class="w-full md:w-3/5 flex flex-col">
+                    <!-- Info -->
+                    <div class="p-6 md:p-8 space-y-6">
+                        <div class="flex flex-wrap items-center gap-4 text-gray-200 text-sm md:text-base">
+                            <div class="flex items-center gap-2 bg-gray-800/50 rounded-full px-4 py-1.5">
+                                <span class="icon-[mdi--folder-outline] text-amber-400"></span>
+                                <span class="font-medium"><?= str_secure($course->getCategory()->getById()->getName()) ?></span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-800/50 rounded-full px-4 py-1.5">
+                                <span class="icon-[mdi--account-outline] text-amber-400"></span>
+                                <span class="font-medium"><?= str_secure(ucfirst($course->getTeacher()->getById()['name'])) ?></span>
+                            </div>
+                        </div>
 
-            <!-- Description -->
-            <p class="text-gray-400 mb-6">This is a detailed description of the course.</p>
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-100 leading-tight">
+                            <?= str_secure($course->getTitle()) ?>
+                        </h1>
 
-            <!-- Content -->
-            <div class="prose prose-invert max-w-none mb-6">
-                <p>This is the full content of the course. It can include <strong>bold text</strong>, <em>italic text</em>, and even <a href="#" class="text-blue-400 hover:text-blue-300">links</a>.</p>
-                <ul>
-                    <li>List item 1</li>
-                    <li>List item 2</li>
-                </ul>
-            </div>
+                        <!-- Description -->
+                        <div class="text-base md:text-lg text-gray-300 leading-relaxed">
+                            <?= str_secure($course->getDescription()) ?>
+                        </div>
 
-            <!-- Tags -->
-            <div class="flex flex-wrap gap-2 mb-6">
-                <span class="bg-gray-700 text-gray-300 text-sm px-2 py-1 rounded">Tag 1</span>
-                <span class="bg-gray-700 text-gray-300 text-sm px-2 py-1 rounded">Tag 2</span>
-            </div>
+                        <!-- Tags -->
+                        <div class="flex flex-wrap gap-2 pt-4">
+                            <?php foreach ($course->getTags() as $tag): ?>
+                                <span class="bg-amber-900/40 text-amber-300 text-sm px-4 py-1.5 rounded-full font-medium
+                                           hover:bg-amber-900/60 transition-colors duration-300 cursor-pointer">
+                                    #<?= str_secure($tag->getName()) ?>
+                                </span>
+                            <?php endforeach; ?>
+                        </div>
 
-            <!-- Category -->
-            <p class="text-gray-400 mb-6">
-                <span class="font-semibold">Category:</span> Category Name
-            </p>
-
-            <!-- Teacher -->
-            <div class="flex items-center space-x-4 mb-6">
-                <img src="/Assets/teacher1.webp" alt="Teacher" class="w-12 h-12 rounded-full">
-                <div>
-                    <p class="text-gray-400">Taught by</p>
-                    <p class="font-semibold">Teacher Name</p>
+                        <!-- Enroll Button -->
+                        <?php if (Session::getRole() === 'student'): ?>
+                            <div class="pt-6 w-full">
+                                <a href="?action=enroll_new<?= $course->getId() ?>"
+                                   class="btn_second">
+                                    Enroll Now
+                                </a>
+                            </div>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
-
-            <!-- Enroll Button -->
-            <a href="/enroll/1" class="btn_second w-full block text-center">Enroll Now</a>
         </div>
     </div>
 </main>

@@ -39,8 +39,6 @@ class Router
 
             $viewFile = $this->viewDirectory . $view . '_view.php';
 
-            dd($view);
-
             if (file_exists($viewFile)) {
                 require_once $viewFile;
             } else {

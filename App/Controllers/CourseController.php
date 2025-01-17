@@ -39,6 +39,19 @@ class CourseController extends Controller
         return $courses;
     }
 
+    public function getById(){
+        $id = isset($_GET['id']) ? intval($_GET['id'] ): null;
+
+        if (!$id){
+            $this->redirect('/catalog');
+        }
+
+        $this->course->setId($id);
+        $course = $this->course->getById();
+
+        return $course;
+    }
+
     public function create()
     {
         if (!$this->validateToken($_POST['csrf'])) {
