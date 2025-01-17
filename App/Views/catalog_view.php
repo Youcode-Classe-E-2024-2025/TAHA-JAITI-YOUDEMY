@@ -3,7 +3,6 @@ $data = (new CourseController())->getAll();
 $courses = $data['courses'];
 $pagination = $data['pagination'];
 
-dd($pagination);
 ?>
 
 <main class="container mx-auto px-4 py-8">
@@ -70,15 +69,15 @@ dd($pagination);
     <!-- Pagination -->
     <div class="mt-8 flex justify-center space-x-4">
         <?php if ($pagination['page'] > 1): ?>
-            <a href="/catalog?p=<?= $pagination['page'] - 1 ?>" class="btn_second"><</a>
+            <a href="/catalog?p=<?= $pagination['page'] - 1 ?>" class="btn_second font-bold"><</a>
         <?php endif; ?>
 
         <?php for ($i = 1; $i <= $pagination['total_pages']; $i++): ?>
-            <a href="/catalog?p=<?= $i ?>" class="btn_second <?= $i === $pagination['page'] ? 'bg-blue-500' : '' ?>"><?= $i ?></a>
+            <a href="/catalog?p=<?= $i ?>" class="btn_second <?= $i === $pagination['page'] ? 'bg-blue-700' : '' ?>"><?= $i ?></a>
         <?php endfor; ?>
 
         <?php if ($pagination['page'] < $pagination['total_pages']): ?>
-            <a href="/catalog?p=<?= $pagination['page'] + 1 ?>" class="btn_second">></a>
+            <a href="/catalog?p=<?= $pagination['page'] + 1 ?>" class="btn_second font-bold">></a>
         <?php endif; ?>
     </div>
 </main>

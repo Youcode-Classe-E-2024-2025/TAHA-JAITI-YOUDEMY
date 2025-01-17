@@ -32,7 +32,7 @@ class Router
 
             $view = ucfirst(strtolower($uri));
 
-            if (isset($_GET['p'])){
+            if (isset($_GET)){
                 $view = explode('?', $view);
                 $view = $view[0];
             }
