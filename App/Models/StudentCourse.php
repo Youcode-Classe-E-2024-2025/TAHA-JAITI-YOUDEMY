@@ -58,9 +58,8 @@ class StudentCourse extends Course
 
         $totalCount = 'SELECT COUNT(*) as total FROM courses';
         $totalRes = $this->pdo->fetch($totalCount);
-        $totalCourses = $totalRes['total'];
 
-        $pageCount = ceil($totalCourses/$limit);
+        $pageCount = ceil($totalRes['total']/$limit);
 
         $courses = [];
         foreach ($data as $row) {
@@ -91,8 +90,6 @@ class StudentCourse extends Course
             'courses' => $courses,
             'pagination' => [
                 'page' => $page,
-                'limit' => $limit,
-                'total' => $totalCourses,
                 'total_pages' => $pageCount
             ]
         ];
