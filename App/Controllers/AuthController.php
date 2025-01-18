@@ -98,13 +98,13 @@ class AuthController extends Controller
 
             switch ($userData['role']) {
                 case 'admin':
-                    $this->redirect('/statistics');
+                    Session::redirect('/statistics');
                     break;
                 case 'teacher':
-                    $this->redirect('/home');
+                    Session::redirect('/home');
                     break;
                 case 'student':
-                    $this->redirect('/home');
+                    Session::redirect('/home');
                     break;
                 default:
                     Session::redirectErr();
@@ -116,6 +116,6 @@ class AuthController extends Controller
     public function logout(): void
     {
         session_destroy();
-        $this->redirect('/login');
+        Session::redirect('/login');
     }
 }
