@@ -2,7 +2,7 @@
 $total_courses = (new AdminStats())->getTotalCourses();
 $popular = AdminStats::getPopularCourse();
 $popular_teahcher = AdminStats::getPopularTeachers();
-
+$course_cat = AdminStats::getCourseByCategory();
 ?>
 
 <main class="container flex-grow px-4 py-8 mx-auto">
@@ -57,7 +57,7 @@ $popular_teahcher = AdminStats::getPopularTeachers();
                     <h2 class="text-lg font-semibold text-gray-300">Top Teachers</h2>
                     <ol class="px-4 mt-2 list-decimal">
                         <?php foreach ($popular_teahcher as $user): ?>
-                            <li class="text-white"><span>#<?= $user->getId()?> | </span><?= $user->getName() ?></li>
+                            <li class="text-white"><span>#<?= $user->getId() ?> | </span><?= $user->getName() ?></li>
                         <?php endforeach; ?>
                     </ol>
                 </div>
@@ -68,9 +68,15 @@ $popular_teahcher = AdminStats::getPopularTeachers();
     <!-- Course Distribution by Category -->
     <div class="p-6 mb-8 bg-gray-800 rounded-lg shadow-md">
         <h2 class="mb-4 text-xl font-bold text-gray-300">Course Distribution by Category</h2>
-        <div class="w-full h-64">
-            <!-- Placeholder for Chart -->
-            <canvas id="courseDistributionChart"></canvas>
+        <div class="h-[15rem] space-y-4 overflow-y-auto">
+            <?php foreach ($course_cat as $category): ?>
+                <div class="flex items-center justify-between p-4 bg-gray-700 rounded-sm">
+                    <span class="text-gray-300 px-"><?= $category['name'] ?></span>
+                    <span class="px-3 py-1 text-sm font-bold text-blue-600 bg-gray-300 rounded-full">
+                        <?= $category['course_count']; ?> courses
+                    </span>
+                </div>
+            <?php endforeach; ?>
         </div>
     </div>
 

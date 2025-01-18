@@ -70,7 +70,7 @@ class AdminStats extends Enrollment
         return $usersArray;
     }
 
-    public static function getCourseByCategory()
+    public static function getCourseByCategory():array
     {
         $pdo = Database::getInstance();
 
@@ -79,6 +79,7 @@ class AdminStats extends Enrollment
                 GROUP BY cat.id
                 ORDER BY course_count ASC";
         $result = $pdo->fetchAll($sql);
-        
+
+        return $result ?? [];
     }
 }
