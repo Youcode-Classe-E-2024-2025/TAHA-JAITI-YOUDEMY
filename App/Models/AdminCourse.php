@@ -81,7 +81,7 @@ class AdminCourse extends Course
 
     public function getAll(): array
     {
-        $query = "SELECT * FROM courses";
+        $query = "SELECT * FROM courses ORDER BY id ASC";
         $data = $this->pdo->fetchAll($query);
 
         $courses = [];
