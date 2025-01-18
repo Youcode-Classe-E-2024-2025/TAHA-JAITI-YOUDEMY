@@ -48,7 +48,7 @@ class Database
             $this->connect();
             $this->initTables();
         } catch (PDOException $e) {
-            throw new Exception("Database initialization failed: " . $e->getMessage());
+            Session::redirectErr();
         }
     }
 
@@ -59,7 +59,7 @@ class Database
             $this->pdo = new PDO($dsn, $this->user, $this->password);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            throw new Exception("Connection failed: " . $e->getMessage());
+            Session::redirectErr();
         }
     }
 
@@ -75,11 +75,11 @@ class Database
                 $this->pdo->exec($sql);
             }
         } catch (PDOException $e) {
-            throw new Exception("Table initialization failed: " . $e->getMessage());
+            Session::redirectErr();
         }
     }
 
-    public function prepareExecute(string $sql, array $params = []): PDOStatement
+    public function prepareExecute(string $sql, array $params = []): ?PDOStatement
     {
         if ($this->pdo === null) {
             $this->connect();
@@ -90,7 +90,7 @@ class Database
             $stmt->execute($params);
             return $stmt;
         } catch (PDOException $e) {
-            throw new Exception("Query execution failed: " . $e->getMessage());
+            Session::redirectErr();
         }
     }
 

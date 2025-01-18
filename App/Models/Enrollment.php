@@ -148,7 +148,8 @@ class Enrollment
         return (int) $result['total_students'];
     }
 
-    public static function getTotalCourses(): int{
+    public static function getTotalCourses(): int
+    {
         $pdo = Database::getInstance();
         $sql = "SELECT COUNT(DISTINCT c.id) as total_courses FROM courses c 
                 JOIN users u ON c.teacher_id = u.id

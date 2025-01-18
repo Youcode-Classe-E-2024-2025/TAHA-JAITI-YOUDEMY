@@ -2,21 +2,18 @@
 
 class AuthController extends Controller
 {
-    private User $userModel;
-
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
-        $this->userModel = new User();
     }
 
     public function register(): void
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if (!$this->validateToken($_POST['csrf'])){
-                $_SESSION['error'] = 'Invalid CSRF token.';
-                $this->redirect('/signup');
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$this->validateToken($_POST['csrf'])) {
+                Session::redirectErr('/signup');
             }
-            
+
             $data = $this->getData();
 
             $name = $data['username'];
@@ -25,29 +22,25 @@ class AuthController extends Controller
             $role = $data['role'];
 
             if (empty($name) || empty($email) || empty($password) || empty($role)) {
-                $_SESSION['error'] = 'All fields are required.';
-                $this->redirect('/signup');
+                Session::redirectErr('/signup', 'All fields are required');
             }
 
-            $user = $this->userModel;
+            $user = new User();
 
             $user->setEmail($email);
 
-            if ($user->getByEmail()){
-                $_SESSION['error'] = 'A user with this email already exists.';
-                $this->redirect('/signup');
+            if ($user->getByEmail()) {
+                Session::redirectErr('/signup', 'A user with this email already exists');
             }
 
             $user->setPassword($password);
             $user->setName($name);
             $user->setRole($role);
 
-            if ($user->create()){
-                $_SESSION['success'] = 'Registration successful, Please wait until an admin accepts you.';
-                $this->redirect('/login');
+            if ($user->create()) {
+                Session::redirectSuccess('/login', "Registration successful");
             } else {
-                $_SESSION['error'] = 'Registration unsuccessful, Try again.';
-                $this->redirect('/signup'); 
+                Session::redirectErr('/signup');
             }
         }
     }
@@ -56,39 +49,45 @@ class AuthController extends Controller
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (!$this->validateToken($_POST['csrf'])) {
-                $_SESSION['error'] = 'Invalid CSRF token.';
-                $this->redirect('/login');
+                Session::redirectErr('/login');
             }
 
             $data = $this->getData();
 
-            $email = $data['email'];
-            $password = $data['password'];
+            $email = filter_var($data['email'] ?? '', FILTER_SANITIZE_EMAIL);
+            $password = $data['password'] ?? '';
 
             if (empty($email) || empty($password)) {
-                $_SESSION['error'] = 'All fields are required.';
-                $this->redirect('/login');
+                Session::redirectErr('/login', 'All fields are required.');
+                return;
+            }
+        
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                Session::redirectErr('/login', 'Invalid email format.');
+                return;
             }
 
-            $user = $this->userModel;
+            $user = new User();
             $user->setEmail($email);
 
             $userData = $user->getByEmail();
 
-            if (!$userData) {
-                $_SESSION['error'] = 'A user with this email does not exist.';
-                $this->redirect('/login');
+            if (!$userData || empty($userData)) {
+                Session::redirectErr('/login', 'A user with this email does not exist');
+                return;
             }
 
             if (!password_verify($password, $userData['password'])) {
-                $_SESSION['error'] = 'Invalid password.';
-                $this->redirect('/login');
+                Session::redirectErr('/login', 'Invalid password');
+                return;
             }
 
             if ($userData['status'] !== 'active') {
-                $_SESSION['error'] = 'Your account is pending approval/suspended.';
-                $this->redirect('/login');
+                Session::redirectErr('/login', 'Your account is pending approval/suspended.');
+                return;
             }
+
+            session_regenerate_id(true);
 
             $_SESSION['user'] = [
                 'id' => $userData['id'],
@@ -108,8 +107,7 @@ class AuthController extends Controller
                     $this->redirect('/home');
                     break;
                 default:
-                    $_SESSION['error'] = 'Invalid role.';
-                    $this->redirect('/login');
+                    Session::redirectErr();
                     session_destroy();
             }
         }

@@ -3,9 +3,7 @@ session_start();
 require_once 'vendor/autoload.php';
 require_once __DIR__ . '/App/Bootstrap.php';
 
-$db = new Database();
 $router = new Router();
-
 $router->action();
 
 if (Session::isAdminLogged()) {
@@ -30,12 +28,14 @@ if (Session::isAdminLogged()) {
     <title>Youdemy</title>
 </head>
 
-<body class="bg-gray-900 text-gray-100 h-screen w-screen flex flex-col">
+<body class="flex flex-col w-screen h-screen text-gray-100 bg-gray-900">
 
     <?php
     //HEADER
     require_once __DIR__ . $header;
 
+    require_once __DIR__ . '/App/Views/Helper/Message.php';
+    
     //VIEWS LOGIC
     $router->view();
 

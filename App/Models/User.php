@@ -101,7 +101,8 @@ class User
         }
 
         $sql = "SELECT * FROM users WHERE email = :email LIMIT 1";
-        return $this->pdo->fetch($sql, [':email' => $this->email]);
+        $result = $this->pdo->fetch($sql, [':email' => $this->email]);
+        return $result ?? [];
     }
 
     public function getById(): ?array
