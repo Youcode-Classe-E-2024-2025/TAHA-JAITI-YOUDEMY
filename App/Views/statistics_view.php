@@ -1,3 +1,7 @@
+<?php 
+    $total_courses = (new AdminStats())->getTotalCourses();
+?>
+
 <main class="container flex-grow px-4 py-8 mx-auto">
     <!-- Header Section -->
     <div class="mb-8 text-center">
@@ -17,7 +21,7 @@
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Total Courses</h2>
-                    <p class="text-2xl font-bold text-white">125</p>
+                    <p class="text-2xl font-bold text-white"><?= $total_courses ?></p>
                 </div>
             </div>
         </div>

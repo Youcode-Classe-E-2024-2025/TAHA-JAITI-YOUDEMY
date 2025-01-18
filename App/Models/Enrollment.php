@@ -4,7 +4,7 @@
 class Enrollment
 {
 
-    private Database $pdo;
+    protected Database $pdo;
     private int $course_id;
     private int $student_id;
 
@@ -136,26 +136,24 @@ class Enrollment
         return $result > 0;
     }
 
-    public static function getTotalStudents(): int
+    public function getTotalStudents(): int
     {
-        $pdo = Database::getInstance();
         $sql = "SELECT COUNT(DISTINCT e.student_id) as total_students
                 FROM enrollments e
                 JOIN courses c ON e.course_id = c.id
                 WHERE c.teacher_id = :t_id";
 
-        $result = $pdo->fetch($sql, [':t_id' => Session::getId()]);
+        $result = $this->pdo->fetch($sql, [':t_id' => Session::getId()]);
         return (int) $result['total_students'];
     }
 
-    public static function getTotalCourses(): int
+    public function getTotalCourses(): int
     {
-        $pdo = Database::getInstance();
         $sql = "SELECT COUNT(DISTINCT c.id) as total_courses FROM courses c 
                 JOIN users u ON c.teacher_id = u.id
                 WHERE c.teacher_id = :t_id";
 
-        $result = $pdo->fetch($sql, [':t_id' => Session::getId()]);
+        $result = $this->pdo->fetch($sql, [':t_id' => Session::getId()]);
         return (int) $result['total_courses'];
     }
 }
