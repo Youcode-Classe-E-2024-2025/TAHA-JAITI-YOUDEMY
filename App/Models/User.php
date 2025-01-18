@@ -29,7 +29,7 @@ class User
 
     public function getName(): string
     {
-        return $this->name;
+        return ucfirst($this->name);
     }
 
     public function getEmail(): string

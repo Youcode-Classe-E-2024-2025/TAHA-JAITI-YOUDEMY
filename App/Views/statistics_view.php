@@ -55,9 +55,9 @@ $popular_teahcher = AdminStats::getPopularTeachers();
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Top Teachers</h2>
-                    <ol class="px-6 mt-2 list-decimal">
+                    <ol class="px-4 mt-2 list-decimal">
                         <?php foreach ($popular_teahcher as $user): ?>
-                            <li class="text-white"><?= $user->getName() ?></li>
+                            <li class="text-white"><span>#<?= $user->getId()?> | </span><?= $user->getName() ?></li>
                         <?php endforeach; ?>
                     </ol>
                 </div>

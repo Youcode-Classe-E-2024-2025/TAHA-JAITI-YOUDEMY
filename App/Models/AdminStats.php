@@ -15,7 +15,8 @@ class AdminStats extends Enrollment
         return (int) $result['total_courses'];
     }
 
-    public static function getPopularCourse(): array {
+    public static function getPopularCourse(): array
+    {
         $pdo = Database::getInstance();
 
         $sql = "SELECT c.id, c.title, COUNT(e.student_id) as total_students FROM courses c
@@ -25,10 +26,10 @@ class AdminStats extends Enrollment
                 LIMIT 1";
         $result = $pdo->fetch($sql);
 
-        if (!$result){
+        if (!$result) {
             return [];
         }
-        
+
         $course = new AdminCourse();
         $course->setId($result['id']);
         $course->setTitle($result['title']);
@@ -39,7 +40,8 @@ class AdminStats extends Enrollment
         ];
     }
 
-    public static function getPopularTeachers(){
+    public static function getPopularTeachers()
+    {
         $pdo = Database::getInstance();
 
         $sql = "SELECT u.id, u.name, COUNT(e.student_id) as students FROM users u
@@ -51,13 +53,13 @@ class AdminStats extends Enrollment
                     LIMIT 3";
         $result = $pdo->fetchAll($sql);
 
-        if (!$result){
+        if (!$result) {
             return [];
         }
 
         $usersArray = [];
 
-        foreach($result as $row){
+        foreach ($result as $row) {
             $user = new User();
             $user->setId($row['id']);
             $user->setName($row['name']);
@@ -66,5 +68,17 @@ class AdminStats extends Enrollment
         }
 
         return $usersArray;
+    }
+
+    public static function getCourseByCategory()
+    {
+        $pdo = Database::getInstance();
+
+        $sql = "SELECT cat.id, cat.name, COUNT(c.id) as course_count FROM categories cat
+                LEFT JOIN courses c ON cat.id = c.category_id
+                GROUP BY cat.id
+                ORDER BY course_count ASC";
+        $result = $pdo->fetchAll($sql);
+        
     }
 }
