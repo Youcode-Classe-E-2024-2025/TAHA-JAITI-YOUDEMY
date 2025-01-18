@@ -1,8 +1,8 @@
-<?php 
-    $total_courses = (new AdminStats())->getTotalCourses();
-    $popular = (new AdminStats())->getPopularCourse();
+<?php
+$total_courses = (new AdminStats())->getTotalCourses();
+$popular = AdminStats::getPopularCourse();
+$popular_teahcher = AdminStats::getPopularTeachers();
 
-    
 ?>
 
 <main class="container flex-grow px-4 py-8 mx-auto">
@@ -55,11 +55,11 @@
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Top Teachers</h2>
-                    <ul class="mt-2">
-                        <li class="text-white">1. John Doe</li>
-                        <li class="text-white">2. Jane Smith</li>
-                        <li class="text-white">3. Alice Johnson</li>
-                    </ul>
+                    <ol class="px-6 mt-2 list-decimal">
+                        <?php foreach ($popular_teahcher as $user): ?>
+                            <li class="text-white"><?= $user->getName() ?></li>
+                        <?php endforeach; ?>
+                    </ol>
                 </div>
             </div>
         </div>
