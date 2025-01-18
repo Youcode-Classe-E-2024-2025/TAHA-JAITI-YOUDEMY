@@ -2,21 +2,21 @@
 $users = (new UserController())->getAll();
 ?>
 
-<main class="flex-grow container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Manage Users</h1>
+<main class="container flex-grow px-4 py-8 mx-auto">
+    <h1 class="mb-8 text-3xl font-bold">Manage Users</h1>
 
-    <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-hidden bg-gray-800 rounded-lg shadow-md">
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead>
                     <tr class="bg-gray-700">
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">ID</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Role</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Created At</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">ID</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Name</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Email</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Role</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Status</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Created At</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-700">
@@ -41,7 +41,7 @@ $users = (new UserController())->getAll();
                                 </span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap"><?= str_secure($user['created_at']) ?></td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
+                            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                 <div class="flex space-x-6">
                                     <?php if ($user['status'] !== 'active'): ?>
 

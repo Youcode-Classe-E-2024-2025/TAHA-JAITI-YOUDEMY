@@ -2,10 +2,10 @@
 $tags = (new TagController())->getAll();
 ?>
 
-<main class="flex-grow container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Manage Tags</h1>
+<main class="container flex-grow px-4 py-8 mx-auto">
+    <h1 class="mb-8 text-3xl font-bold">Manage Tags</h1>
 
-    <form action="?action=tag_create" method="POST" class="bg-gray-800 rounded-lg shadow-md p-6 mb-8">
+    <form action="?action=tag_create" method="POST" class="p-6 mb-8 bg-gray-800 rounded-lg shadow-md">
         <input type="hidden" name="csrf" value="<?= genToken() ?>">
         <div class="grid grid-cols-1 gap-6">
             <div>
@@ -20,14 +20,14 @@ $tags = (new TagController())->getAll();
         </div>
     </form>
 
-    <div class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+    <div class="overflow-hidden bg-gray-800 rounded-lg shadow-md">
         <div class="overflow-x-auto">
             <table class="w-full">
                 <thead>
                     <tr class="bg-gray-700">
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">ID</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                        <th class="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Actions</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">ID</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Name</th>
+                        <th class="px-4 py-3 text-xs font-medium tracking-wider text-left text-gray-300 uppercase">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-700">
@@ -35,7 +35,7 @@ $tags = (new TagController())->getAll();
                         <tr>
                             <td class="px-4 py-4 whitespace-nowrap"><?= str_secure($tag['id']) ?></td>
                             <td class="px-4 py-4 whitespace-nowrap"><?= str_secure($tag['name']) ?></td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
+                            <td class="px-4 py-4 text-sm font-medium whitespace-nowrap">
                                 <div class="flex space-x-6">
                                     <a href="?action=tag_delete&id=<?= $tag['id'] ?>&csrf=<?= genToken() ?>"
                                         class="text-red-400 hover:text-red-300" aria-label="Delete">

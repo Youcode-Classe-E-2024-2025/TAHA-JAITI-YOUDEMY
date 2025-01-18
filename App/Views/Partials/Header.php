@@ -2,41 +2,40 @@
 $isLogged = $_SESSION['user'] ?? null;
 ?>
 
-<header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-10">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+<header class="sticky top-0 z-10 bg-gray-800 border-b border-gray-700">
+    <div class="container flex items-center justify-between px-4 py-4 mx-auto">
         <!-- Logo -->
         <a href="/home" class="text-2xl font-bold text-blue-400">YOUDEMY</a>
-        
+
         <!-- Desktop Navigation -->
-        <nav class="hidden md:flex space-x-6 justify-center items-center">
-            <a href="/catalog" class="hover:text-blue-400 transition-colors">Catalog</a>
+        <nav class="items-center justify-center hidden space-x-6 md:flex">
+            <a href="/catalog" class="transition-colors hover:text-blue-400">Catalog</a>
             <?php if ($isLogged): ?>
-                <a href="/mycourses" class="hover:text-blue-400 transition-colors">My Courses</a>
-                <a href="?action=auth_logout" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-colors">Log out</a>
+                <a href="/mycourses" class="transition-colors hover:text-blue-400">My Courses</a>
+                <a href="?action=auth_logout" class="px-4 py-2 transition-colors bg-blue-600 rounded hover:bg-blue-700">Log out</a>
             <?php else: ?>
-                <a href="/login" class="hover:text-blue-400 transition-colors">Log in</a>
-                <a href="/signup" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-colors">Sign up</a>
+                <a href="/login" class="transition-colors hover:text-blue-400">Log in</a>
+                <a href="/signup" class="px-4 py-2 transition-colors bg-blue-600 rounded hover:bg-blue-700">Sign up</a>
             <?php endif; ?>
         </nav>
-        
+
         <!-- Mobile Menu Button -->
-        <button id="openNav" class="md:hidden text-gray-300 hover:text-white">
+        <button id="openNav" class="text-gray-300 md:hidden hover:text-white">
             <span class="icon-[mdi--hamburger-menu] text-4xl"></span>
         </button>
     </div>
 
     <!-- Mobile Navigation -->
-    <nav 
-        id="mobileNav" 
-        class="hidden bg-gray-800 h-fit fixed flex-col items-center justify-center w-full border-t border-gray-700 px-4 py-6 space-y-4"
-    >
-        <a href="/catalog" class="block text-gray-300 hover:text-blue-400 transition-colors">Catalog</a>
+    <nav
+        id="mobileNav"
+        class="fixed flex-col items-center justify-center hidden w-full px-4 py-6 space-y-4 bg-gray-800 border-t border-gray-700 h-fit">
+        <a href="/catalog" class="block text-gray-300 transition-colors hover:text-blue-400">Catalog</a>
         <?php if ($isLogged): ?>
-            <a href="/mycourses" class="hover:text-blue-400 transition-colors">My Courses</a>
-            <a href="?action=auth_logout" class="w-full bg-blue-600 hover:bg-blue-700 text-center px-4 py-2 rounded transition-colors">Log out</a>
+            <a href="/mycourses" class="transition-colors hover:text-blue-400">My Courses</a>
+            <a href="?action=auth_logout" class="w-full px-4 py-2 text-center transition-colors bg-blue-600 rounded hover:bg-blue-700">Log out</a>
         <?php else: ?>
-            <a href="/login" class="block text-gray-300 hover:text-blue-400 transition-colors">Log in</a>
-            <a href="/signup" class="w-full bg-blue-600 hover:bg-blue-700 text-center px-4 py-2 rounded transition-colors">Sign up</a>
+            <a href="/login" class="block text-gray-300 transition-colors hover:text-blue-400">Log in</a>
+            <a href="/signup" class="w-full px-4 py-2 text-center transition-colors bg-blue-600 rounded hover:bg-blue-700">Sign up</a>
         <?php endif; ?>
     </nav>
 </header>
