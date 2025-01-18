@@ -28,4 +28,10 @@ class Session{
         }
         return 0;
     }
+
+    public static function redirect($url)
+    {
+        header("Location: $url");
+        exit;
+    }
 }

@@ -1,4 +1,8 @@
 <?php
+if (Session::getRole() !== 'student'){
+    Session::redirect('/home');
+}
+
 $data = (new EnrollmentController())->getAll();
 $courses = $data['courses'];
 $pagination = $data['pagination'];

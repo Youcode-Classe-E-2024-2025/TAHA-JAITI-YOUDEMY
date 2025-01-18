@@ -1,3 +1,9 @@
+<?php
+    if (Session::getRole() !== 'visitor'){
+        Session::redirect('/home');
+    }
+?>
+
 <div class="flex items-center justify-center h-full px-4 py-12 sm:px-6 lg:px-8">
     <div class="grid w-full max-w-xl gap-8">
         <!-- Login Form -->

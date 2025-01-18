@@ -3,7 +3,7 @@
     <div class="container px-6 mx-auto text-center">
         <h1 class="mb-6 text-5xl font-bold text-white">Learn Online with Youdemy</h1>
         <p class="mb-8 text-xl text-gray-300">Discover thousands of online courses taught by experts</p>
-        <a class="btn_primary">
+        <a href="/catalog" class="btn_primary">
             Browse Now
         </a>
     </div>
@@ -98,13 +98,14 @@
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-20 bg-blue-900">
-    <div class="container px-6 mx-auto text-center">
-        <h2 class="mb-8 text-4xl font-bold text-white">Ready to Start Learning?</h2>
-        <p class="mb-8 text-xl text-gray-300">Join thousands of students already learning on Youdemy</p>
-        <a href="/signup" class="text-blue-900 bg-white btn_primary hover:bg-gray-300">
-            Create Free Account
-        </a>
-    </div>
-</section>
+<?php if (!Session::getRole() === 'visitor'): ?>
+    <section class="py-20 bg-blue-900">
+        <div class="container px-6 mx-auto text-center">
+            <h2 class="mb-8 text-4xl font-bold text-white">Ready to Start Learning?</h2>
+            <p class="mb-8 text-xl text-gray-300">Join thousands of students already learning on Youdemy</p>
+            <a href="/signup" class="text-blue-900 bg-white btn_primary hover:bg-gray-300">
+                Create Free Account
+            </a>
+        </div>
+    </section>
+<?php endif; ?>
