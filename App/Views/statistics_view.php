@@ -1,5 +1,8 @@
 <?php 
     $total_courses = (new AdminStats())->getTotalCourses();
+    $popular = (new AdminStats())->getPopularCourse();
+
+    
 ?>
 
 <main class="container flex-grow px-4 py-8 mx-auto">
@@ -36,8 +39,8 @@
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Most Popular Course</h2>
-                    <p class="text-2xl font-bold text-white">Web Development</p>
-                    <p class="text-sm text-gray-400">250 students</p>
+                    <p class="text-2xl font-bold text-white"><?= $popular['course']->getTitle() ?></p>
+                    <p class="font-semibold text-gray-400 text-md"><?= $popular['count'] ?> Students</p>
                 </div>
             </div>
         </div>

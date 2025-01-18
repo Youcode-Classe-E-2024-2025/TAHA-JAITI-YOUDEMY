@@ -15,7 +15,25 @@ class AdminStats extends Enrollment
         return (int) $result['total_courses'];
     }
 
-    public function getPopularCourse(){
+    public function getPopularCourse(): array {
+        $sql = "SELECT c.id, c.title, COUNT(e.student_id) as total_students FROM courses c
+                JOIN enrollments e ON e.course_id = c.id
+                GROUP BY c.id
+                ORDER BY total_students ASC
+                LIMIT 1";
+        $result = $this->pdo->fetch($sql);
+
+        if (!$result){
+            return [];
+        }
         
+        $course = new AdminCourse();
+        $course->setId($result['id']);
+        $course->setTitle($result['title']);
+        
+        return [
+            'course' => $course,
+            'count' => $result['total_students']
+        ];
     }
 }
