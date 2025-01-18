@@ -53,7 +53,7 @@ $course = (new CourseController())->getById();
                         <!-- Enroll Button -->
                         <?php if (Session::getRole() === 'student'): ?>
                             <div class="pt-6 w-full">
-                                <a href="?action=enroll_new<?= $course->getId() ?>"
+                                <a href="?action=enrollment_enroll&id=<?= $course->getId()?>&csrf=<?=genToken()?>"
                                     class="btn_second">
                                     Enroll Now
                                 </a>
