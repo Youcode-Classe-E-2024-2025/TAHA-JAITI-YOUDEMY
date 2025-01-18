@@ -44,13 +44,15 @@ class AdminStats extends Enrollment
     {
         $pdo = Database::getInstance();
 
-        $sql = "SELECT u.id, u.name, COUNT(e.student_id) as students FROM users u
-                    JOIN courses c ON u.id = c.teacher_id
-                    LEFT JOIN enrollments e ON c.id = e.course_id
-                    WHERE u.role = 'teacher'
-                    GROUP BY u.id
-                    ORDER BY students ASC
-                    LIMIT 3";
+        $sql = "SELECT u.id, u.name, COUNT(e.student_id) as students, COUNT(DISTINCT c.id) as courses 
+            FROM users u
+            JOIN courses c ON u.id = c.teacher_id
+            LEFT JOIN enrollments e ON c.id = e.course_id
+            WHERE u.role = 'teacher'
+            GROUP BY u.id
+            ORDER BY students DESC
+            LIMIT 3";
+
         $result = $pdo->fetchAll($sql);
 
         if (!$result) {
@@ -58,6 +60,7 @@ class AdminStats extends Enrollment
         }
 
         $usersArray = [];
+        $statsArray = [];
 
         foreach ($result as $row) {
             $user = new User();
@@ -65,12 +68,20 @@ class AdminStats extends Enrollment
             $user->setName($row['name']);
 
             $usersArray[] = $user;
+
+            $statsArray[] = [
+                'students' => $row['students'],
+                'courses' => $row['courses']
+            ];
         }
 
-        return $usersArray;
+        return [
+            'users' => $usersArray,
+            'stats' => $statsArray
+        ];
     }
 
-    public static function getCourseByCategory():array
+    public static function getCourseByCategory(): array
     {
         $pdo = Database::getInstance();
 

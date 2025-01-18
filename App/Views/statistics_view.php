@@ -1,7 +1,7 @@
 <?php
 $total_courses = (new AdminStats())->getTotalCourses();
 $popular = AdminStats::getPopularCourse();
-$popular_teahcher = AdminStats::getPopularTeachers();
+$popular_teacher = AdminStats::getPopularTeachers();
 $course_cat = AdminStats::getCourseByCategory();
 ?>
 
@@ -56,8 +56,11 @@ $course_cat = AdminStats::getCourseByCategory();
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Top Teachers</h2>
                     <ol class="px-4 mt-2 list-decimal">
-                        <?php foreach ($popular_teahcher as $user): ?>
-                            <li class="text-white"><span>#<?= $user->getId() ?> | </span><?= $user->getName() ?></li>
+                        <?php foreach ($popular_teacher['users'] as $user): ?>
+                            <li class="text-white">
+                                <span>#<?= $user->getId() ?> | </span>
+                                <?= $user->getName() ?>
+                            </li>
                         <?php endforeach; ?>
                     </ol>
                 </div>
@@ -93,24 +96,14 @@ $course_cat = AdminStats::getCourseByCategory();
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-700">
-                <tr>
-                    <td class="px-4 py-4 whitespace-nowrap">1</td>
-                    <td class="px-4 py-4 whitespace-nowrap">John Doe</td>
-                    <td class="px-4 py-4 whitespace-nowrap">15</td>
-                    <td class="px-4 py-4 whitespace-nowrap">500</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-4 whitespace-nowrap">2</td>
-                    <td class="px-4 py-4 whitespace-nowrap">Jane Smith</td>
-                    <td class="px-4 py-4 whitespace-nowrap">12</td>
-                    <td class="px-4 py-4 whitespace-nowrap">450</td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-4 whitespace-nowrap">3</td>
-                    <td class="px-4 py-4 whitespace-nowrap">Alice Johnson</td>
-                    <td class="px-4 py-4 whitespace-nowrap">10</td>
-                    <td class="px-4 py-4 whitespace-nowrap">400</td>
-                </tr>
+                <?php foreach ($popular_teacher['users'] as $key => $user): ?>
+                    <tr>
+                        <td class="px-4 py-4 whitespace-nowrap"><?= $user->getId() ?></td>
+                        <td class="px-4 py-4 whitespace-nowrap"><?= $user->getName() ?></td>
+                        <td class="px-4 py-4 whitespace-nowrap"><?= $popular_teacher['stats'][$key]['courses'] ?></td>
+                        <td class="px-4 py-4 whitespace-nowrap"><?= $popular_teacher['stats'][$key]['students'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>
