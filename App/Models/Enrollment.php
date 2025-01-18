@@ -36,7 +36,8 @@ class Enrollment
         $this->student_id = $student;
     }
 
-    public function enroll(): bool{
+    public function enroll(): bool
+    {
         $sql = "INSERT INTO enrollments(student_id, course_id) VALUES (:uid, :cid)";
         return $this->pdo->execute($sql, [
             ':uid' => $this->student_id,
@@ -44,4 +45,63 @@ class Enrollment
         ]);
     }
 
+    public function getEnrolledCourses(int $page = 1, int $limit = 8): array
+    {
+        $offset = ($page - 1) * $limit;
+
+        $sql = "SELECT c.*, e.*, u.id 
+            FROM courses c
+            JOIN enrollments e ON c.id = e.course_id
+            JOIN users u ON e.student_id = u.id
+            WHERE u.id = :id
+            LIMIT :limit OFFSET :offset";
+
+        $data = $this->pdo->fetchAll($sql, [
+            ':id' => $this->student_id,
+            ':limit' => $limit,
+            ':offset' => $offset,
+        ]);
+
+        $totalCountSql = "SELECT COUNT(*) as total 
+                    FROM courses c
+                    JOIN enrollments e ON c.id = e.course_id
+                    JOIN users u ON e.student_id = u.id
+                    WHERE u.id = :id";
+        $totalRes = $this->pdo->fetch($totalCountSql, [':id' => $this->student_id]);
+
+        $pageCount = ceil($totalRes['total'] / $limit);
+
+        $courses = [];
+        foreach ($data as $row) {
+            $course = new StudentCourse();
+            $course->setId($row['id']);
+            $course->setTitle($row['title']);
+            $course->setDescription($row['description']);
+            $course->setContent($row['content']);
+            $course->setImage($row['image']);
+
+            $teacher = new User();
+            $teacher->setId($row['teacher_id']);
+            $course->setTeacher($teacher);
+
+            $category = new Category();
+            $category->setId($row['category_id']);
+            $course->setCategory($category);
+
+            $courseTag = new CourseTag();
+            $courseTag->setCourseId($row['id']);
+            $tags = $courseTag->getTagsByCourse();
+            $course->setTags($tags);
+
+            $courses[] = $course;
+        }
+
+        return [
+            'courses' => $courses,
+            'pagination' => [
+                'page' => $page,
+                'total_pages' => $pageCount,
+            ],
+        ];
+    }
 }
