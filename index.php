@@ -7,9 +7,9 @@ $router = new Router();
 
 $router->action();
 
-if (Session::isAdminLogged()){
+if (Session::isAdminLogged()) {
     $header = '/App/Views/Partials/AdminHeader.php';
-} elseif (Session::isTeacherLogged()){
+} elseif (Session::isTeacherLogged()) {
     $header = '/App/Views/Partials/TeacherHeader.php';
 } else {
     $header = '/App/Views/Partials/Header.php';
@@ -25,7 +25,7 @@ if (Session::isAdminLogged()){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/output.css">
-    <script src="/lib/tinymce/tinymce.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.0/tinymce.min.js" integrity="sha512-/4EpSbZW47rO/cUIb0AMRs/xWwE8pyOLf8eiDWQ6sQash5RP1Cl8Zi2aqa4QEufjeqnzTK8CLZWX7J5ZjLcc1Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Youdemy</title>
 </head>
 

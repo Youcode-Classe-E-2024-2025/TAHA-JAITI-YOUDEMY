@@ -32,7 +32,7 @@ abstract class Course
 
     public function getTitle(): string
     {
-        return $this->title;
+        return ucfirst($this->title);
     }
 
     public function getDescription(): string
@@ -46,7 +46,7 @@ abstract class Course
     }
 
     public function getImage(): string {
-        return $this->image;
+        return $this->image ?? '/Assets/default.webp';
     }
 
     public function getTeacher(): User

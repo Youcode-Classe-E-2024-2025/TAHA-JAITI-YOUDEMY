@@ -1,5 +1,7 @@
 <?php
 $course = (new CourseController())->getById();
+
+
 ?>
 <main class="h-full w-full flex justify-center items-center bg-gray-900">
     <div class="container mx-auto px-4 py-8 lg:py-12 max-w-6xl">
@@ -9,9 +11,8 @@ $course = (new CourseController())->getById();
                 <div class="relative w-full md:w-2/5 h-[20rem] md:h-auto">
                     <img
                         src="<?= $course->getImage() ? $course->getImage() : '/Assets/default.webp' ?>"
-                        alt="<?= str_secure($course->getTitle()) ?>"
-                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                    >
+                        alt="Course Image"
+                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
                     <div class="absolute inset-0 bg-gradient-to-t from-gray-900/95 via-gray-900/60 to-transparent"></div>
                 </div>
 
@@ -43,7 +44,7 @@ $course = (new CourseController())->getById();
                         <div class="flex flex-wrap gap-2 pt-4">
                             <?php foreach ($course->getTags() as $tag): ?>
                                 <span class="bg-amber-900/40 text-amber-300 text-sm px-4 py-1.5 rounded-full font-medium
-                                           hover:bg-amber-900/60 transition-colors duration-300 cursor-pointer">
+                                        hover:bg-amber-900/60 transition-colors duration-300 cursor-pointer">
                                     #<?= str_secure($tag->getName()) ?>
                                 </span>
                             <?php endforeach; ?>
@@ -53,7 +54,7 @@ $course = (new CourseController())->getById();
                         <?php if (Session::getRole() === 'student'): ?>
                             <div class="pt-6 w-full">
                                 <a href="?action=enroll_new<?= $course->getId() ?>"
-                                   class="btn_second">
+                                    class="btn_second">
                                     Enroll Now
                                 </a>
                             </div>

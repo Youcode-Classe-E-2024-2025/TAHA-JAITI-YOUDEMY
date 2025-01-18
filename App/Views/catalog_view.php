@@ -23,7 +23,7 @@ $pagination = $data['pagination'];
                 <div class="bg-gray-800/90 rounded-sm shadow-xl overflow-hidden h-full flex flex-col transform transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl">
                     <!-- Image -->
                     <div class="relative">
-                        <img class="w-full h-52 object-cover" src="<?= $course->getImage() ? $course->getImage() : '/Assets/default.webp' ?>" alt="Course Image">
+                        <img class="w-full h-52 object-cover" src="<?= $course->getImage() ?>" alt="Course Image">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
                     </div>
 
@@ -69,15 +69,16 @@ $pagination = $data['pagination'];
     <!-- Pagination -->
     <div class="mt-8 flex justify-center space-x-4">
         <?php if ($pagination['page'] > 1): ?>
-            <a href="/catalog?p=<?= $pagination['page'] - 1 ?>" class="btn_second font-bold"><</a>
-        <?php endif; ?>
+            <a href="/catalog?p=<?= $pagination['page'] - 1 ?>" class="btn_second font-bold">
+                << /a>
+                <?php endif; ?>
 
-        <?php for ($i = 1; $i <= $pagination['total_pages']; $i++): ?>
-            <a href="/catalog?p=<?= $i ?>" class="btn_second <?= $i === $pagination['page'] ? 'bg-blue-700' : '' ?>"><?= $i ?></a>
-        <?php endfor; ?>
+                <?php for ($i = 1; $i <= $pagination['total_pages']; $i++): ?>
+                    <a href="/catalog?p=<?= $i ?>" class="btn_second <?= $i === $pagination['page'] ? 'bg-blue-700' : '' ?>"><?= $i ?></a>
+                <?php endfor; ?>
 
-        <?php if ($pagination['page'] < $pagination['total_pages']): ?>
-            <a href="/catalog?p=<?= $pagination['page'] + 1 ?>" class="btn_second font-bold">></a>
-        <?php endif; ?>
+                <?php if ($pagination['page'] < $pagination['total_pages']): ?>
+                    <a href="/catalog?p=<?= $pagination['page'] + 1 ?>" class="btn_second font-bold">></a>
+                <?php endif; ?>
     </div>
 </main>

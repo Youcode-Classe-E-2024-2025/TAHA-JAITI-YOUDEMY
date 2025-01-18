@@ -28,7 +28,7 @@ if (Session::isAdminLogged()) {
                 <div class="bg-gray-800/90 rounded-sm shadow-xl overflow-hidden h-full flex flex-col transform transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl">
                     <!-- Image -->
                     <div class="relative">
-                        <img class="w-full h-52 object-cover" src="<?= $course->getImage() ? $course->getImage() : '/Assets/default.webp' ?>" alt="Course Image">
+                        <img class="w-full h-52 object-cover" src="<?= $course->getImage()?>" alt="Course Image">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
                     </div>
 

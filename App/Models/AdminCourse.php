@@ -61,7 +61,7 @@ class AdminCourse extends Course
         $course->setTitle($data['title']);
         $course->setDescription($data['description']);
         $course->setContent($data['content']);
-        $course->setImage($data['image'] ?? __DIR__ . '/../../Assets/default.webp');
+        $course->setImage($data['image']);
 
         $teacher = new User();
         $teacher->setId($data['teacher_id']);
@@ -91,7 +91,7 @@ class AdminCourse extends Course
             $course->setTitle($row['title']);
             $course->setDescription($row['description']);
             $course->setContent($row['content']);
-            $course->setImage($row['image'] ?? __DIR__ . '../../Assets/default.webp');
+            $course->setImage($row['image']);
 
             $teacher = new User();
             $teacher->setId($row['teacher_id']);
