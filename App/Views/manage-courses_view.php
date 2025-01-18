@@ -52,11 +52,13 @@ if (Session::isAdminLogged()) {
                             <?= $course->getCategory()->getById()->getName() ?>
                         </div>
 
-                        <!-- Stats -->
+                        <!-- Enrollments -->
                         <div class="py-4 border-t border-gray-700">
-                            <div class="flex items-center gap-2 text-emerald-400">
-                                <span class="icon-[mdi--account-group-outline]"></span>
-                                <span class="font-medium">Active Enrollments</span>
+                            <div class="flex items-center justify-center gap-2 text-emerald-400">
+                                <a href="/enrollments?id=<?= $course->getId() ?>">
+                                    <span class="icon-[mdi--account-group-outline]"></span>
+                                    Enrollments
+                                </a>
                             </div>
                         </div>
 
