@@ -23,12 +23,10 @@ class CourseController extends Controller
     }
 
     public function getAll()
-    {   
-        if ($this->course instanceof StudentCourse){
+    {
+        if ($this->course instanceof StudentCourse) {
             $page = intval($_GET['p'] ?? 1);
-
             $result = $this->course->getAll($page);
-
             return [
                 'courses' => $result['courses'],
                 'pagination' => $result['pagination']
@@ -36,15 +34,16 @@ class CourseController extends Controller
         }
 
         $courses = $this->course->getAll();
-        
         return $courses;
     }
 
-    public function getById(){
-        $id = isset($_GET['id']) ? intval($_GET['id'] ): null;
+    public function getById()
+    {
+        $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
-        if (!$id){
-            $this->redirect('/catalog');
+        if (!$id) {
+            Session::redirectErr('/catalog', 'Invalid course ID.');
+            return;
         }
 
         $this->course->setId($id);
@@ -56,8 +55,8 @@ class CourseController extends Controller
     public function create()
     {
         if (!$this->validateToken($_POST['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/manage-courses');
+            Session::redirectErr('/manage-courses', 'Invalid CSRF token.');
+            return;
         }
 
         $data = $this->getData();
@@ -66,25 +65,24 @@ class CourseController extends Controller
         $description = $data['description'] ?? '';
         $content = $data['content'] ?? '';
         $image = $_FILES['image'] ?? null;
-        $teacher = $_SESSION['user']['role'] === 'teacher' ? $_SESSION['user']['id'] : 1;
+        $teacher = Session::getRole() === 'teacher' ? Session::getId() : 1;
         $category = $data['category_id'] ?? '';
         $tags = $data['tags'] ?? [];
 
         if (empty($title) || empty($description) || empty($content) || empty($category) || empty($tags)) {
-            $_SESSION['error'] = 'All fields are required.';
-            $this->redirect('/manage-courses');
+            Session::redirectErr('/manage-courses', 'All fields are required.');
+            return;
         }
 
         $imgPath = null;
         if ($image && $image['error'] === UPLOAD_ERR_OK) {
             $dir = __DIR__ . '/../../Assets';
-
             $imgName = uniqid() . '_' . basename($image['name']);
             $imgPath = $dir . '/' . $imgName;
 
             if (!move_uploaded_file($image['tmp_name'], $imgPath)) {
-                $_SESSION['error'] = 'Failed to upload the file.';
-                $this->redirect('/manage-courses');
+                Session::redirectErr('/manage-courses', 'Failed to upload the file.');
+                return;
             }
 
             $imgPath = '/Assets/' . $imgName;
@@ -105,8 +103,8 @@ class CourseController extends Controller
         $course->setCategory($cats);
 
         if (!$course->save()) {
-            $_SESSION['error'] = 'Failed to create course.';
-            $this->redirect('/manage-courses');
+            Session::redirectErr('/manage-courses', 'Failed to create course.');
+            return;
         }
 
         $tagArray = [];
@@ -118,34 +116,29 @@ class CourseController extends Controller
         $course->setTags($tagArray);
         $course->saveTags();
 
-
-        $_SESSION['success'] = 'Course created successfully.';
-        $this->redirect('/manage-courses');
+        Session::redirectSuccess('/manage-courses', 'Course created successfully.');
     }
 
     public function delete()
     {
-        if (!$this->validateToken($_GET['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/manage-courses');
+        if (!$this->validateToken($_POST['csrf'])) {
+            Session::redirectErr('/manage-courses', 'Invalid CSRF token.');
+            return;
         }
-
 
         $id = intval($_GET['id']);
 
         if (empty($id)) {
-            $_SESSION['error'] = 'Course ID is required.';
-            $this->redirect('/manage-courses');
+            Session::redirectErr('/manage-courses', 'Course ID is required.');
+            return;
         }
 
         $this->course->setId($id);
 
         if ($this->course->delete()) {
-            $_SESSION['success'] = 'Course deleted successfully';
+            Session::redirectSuccess('/manage-courses', 'Course deleted successfully.');
         } else {
-            $_SESSION['error'] = 'Failed to delete course';
+            Session::redirectErr('/manage-courses', 'Failed to delete course.');
         }
-
-        $this->redirect('/manage-courses');
     }
 }
