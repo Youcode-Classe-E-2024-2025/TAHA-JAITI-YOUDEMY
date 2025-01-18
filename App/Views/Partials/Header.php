@@ -11,6 +11,7 @@ $isLogged = $_SESSION['user'] ?? null;
         <nav class="hidden md:flex space-x-6 justify-center items-center">
             <a href="/catalog" class="hover:text-blue-400 transition-colors">Catalog</a>
             <?php if ($isLogged): ?>
+                <a href="/mycourses" class="hover:text-blue-400 transition-colors">My Courses</a>
                 <a href="?action=auth_logout" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded transition-colors">Log out</a>
             <?php else: ?>
                 <a href="/login" class="hover:text-blue-400 transition-colors">Log in</a>
@@ -31,6 +32,7 @@ $isLogged = $_SESSION['user'] ?? null;
     >
         <a href="/catalog" class="block text-gray-300 hover:text-blue-400 transition-colors">Catalog</a>
         <?php if ($isLogged): ?>
+            <a href="/mycourses" class="hover:text-blue-400 transition-colors">My Courses</a>
             <a href="?action=auth_logout" class="w-full bg-blue-600 hover:bg-blue-700 text-center px-4 py-2 rounded transition-colors">Log out</a>
         <?php else: ?>
             <a href="/login" class="block text-gray-300 hover:text-blue-400 transition-colors">Log in</a>
