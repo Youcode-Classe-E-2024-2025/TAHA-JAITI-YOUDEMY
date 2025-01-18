@@ -3,6 +3,10 @@
 class EnrollmentController extends Controller
 {
 
+    public function __construct(){
+        parent::__construct();
+    }
+
     public function enroll()
     {
         if (!$this->validateToken($_GET['csrf'])) {

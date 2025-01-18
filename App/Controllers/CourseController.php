@@ -7,6 +7,7 @@ class CourseController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $role = Session::getRole();
         switch ($role) {
             case 'admin':

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
 
 require_once __DIR__ . '/Config/Config.php';
 require_once __DIR__ . '/Helpers/Debug.php';

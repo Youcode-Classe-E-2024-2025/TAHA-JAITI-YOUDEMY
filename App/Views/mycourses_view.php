@@ -69,7 +69,7 @@ $pagination = $data['pagination'];
     <div class="mt-8 flex justify-center space-x-4">
         <?php if ($pagination['page'] > 1): ?>
             <a href="/catalog?p=<?= $pagination['page'] - 1 ?>" class="btn_second font-bold">
-                << /a>
+                <</a>
                 <?php endif; ?>
 
                 <?php for ($i = 1; $i <= $pagination['total_pages']; $i++): ?>

@@ -5,6 +5,7 @@ class AuthController extends Controller
     private User $userModel;
 
     public function __construct(){
+        parent::__construct();
         $this->userModel = new User();
     }
 
