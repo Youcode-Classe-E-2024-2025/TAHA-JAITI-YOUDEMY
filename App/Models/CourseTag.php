@@ -9,7 +9,7 @@ class CourseTag
 
     public function __construct()
     {
-        $this->pdo = new Database();
+        $this->pdo = Database::getInstance();
     }
 
     public function setCourseId(int $id)

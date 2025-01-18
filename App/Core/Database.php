@@ -1,6 +1,7 @@
 <?php
 class Database
 {
+    private static $instance = null;
     private $host;
     private $port;
     private $dbname;
@@ -18,7 +19,15 @@ class Database
         $this->initDatabase();
     }
 
-    public function initDatabase(): void
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    private function initDatabase(): void
     {
         $dsn = "pgsql:host=" . $this->host . ";port=" . $this->port;
 
@@ -43,7 +52,7 @@ class Database
         }
     }
 
-    public function connect(): void
+    private function connect(): void
     {
         $dsn = "pgsql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname;
         try {
@@ -54,7 +63,7 @@ class Database
         }
     }
 
-    public function initTables(): void
+    private function initTables(): void
     {
         try {
             $stmt = $this->pdo->prepare("SELECT to_regclass('public.users')");
@@ -70,18 +79,6 @@ class Database
         }
     }
 
-    public function getConnection(): PDO
-    {
-        if ($this->pdo === null) {
-            $this->connect();
-        }
-        return $this->pdo;
-    }
-    public function closeConnection(): void
-    {
-        $this->pdo = null;
-    }
-
     public function prepareExecute(string $sql, array $params = []): PDOStatement
     {
         if ($this->pdo === null) {
@@ -91,10 +88,9 @@ class Database
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($params);
-
             return $stmt;
         } catch (PDOException $e) {
-            throw new Exception($e->getMessage());
+            throw new Exception("Query execution failed: " . $e->getMessage());
         }
     }
 
@@ -111,7 +107,7 @@ class Database
         return $result ?: null;
     }
 
-    public function fetchCol(string $sql, array $params)
+    public function fetchCol(string $sql, array $params = [])
     {
         $stmt = $this->prepareExecute($sql, $params);
         return $stmt->fetchColumn();

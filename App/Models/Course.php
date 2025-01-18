@@ -14,7 +14,7 @@ abstract class Course
 
     public function __construct()
     {
-        $this->pdo = new Database();
+        $this->pdo = Database::getInstance();
         $this->id = null;
         $this->title = '';
         $this->description = '';

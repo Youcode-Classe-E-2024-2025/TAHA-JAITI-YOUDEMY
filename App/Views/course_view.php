@@ -36,15 +36,15 @@ $isEnrolled = Enrollment::isEnrolled(Session::getId(), $course->getId());
                         </h1>
 
                         <!-- Description -->
-                        <div class="text-base md:text-lg text-gray-300 leading-relaxed">
+                        <div class="text-base md:text-md text-gray-400 leading-relaxed border-b border-gray-600">
                             <?= str_secure($course->getDescription()) ?>
                         </div>
 
                         <?php if ($isEnrolled): ?>
                             <!-- Content -->
                             <div class="prose prose-invert prose-lg max-w-none prose-headings:text-amber-400 
-                            prose-a:text-amber-400 prose-strong:text-gray-200 prose-code:text-amber-300">
-                                <?= $course->getContent() ?>
+                            prose-a:text-amber-400 prose-strong:text-gray-200 prose-code:text-amber-300 border-b border-gray-600">
+                                <?= str_secure($course->getContent()) ?>
                             </div>
                         <?php endif; ?>
 

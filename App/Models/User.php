@@ -12,7 +12,7 @@ class User
 
     public function __construct()
     {
-        $this->pdo = new Database();
+        $this->pdo = Database::getInstance();
         $this->id = null;
         $this->name = '';
         $this->email = '';

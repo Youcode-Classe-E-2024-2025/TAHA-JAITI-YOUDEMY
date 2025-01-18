@@ -12,7 +12,7 @@ class Enrollment
     {
         $this->course_id = $course;
         $this->student_id = $user;
-        $this->pdo = new Database();
+        $this->pdo = Database::getInstance();
     }
 
     public function getCourse()
@@ -106,7 +106,7 @@ class Enrollment
     }
 
     public static function isEnrolled(int $student_id, int $course_id){
-        $pdo = new Database();
+        $pdo = Database::getInstance();
         $sql = "SELECT COUNT(*) FROM enrollments WHERE student_id = :student_id AND course_id = :course_id";
         $result = $pdo->fetchCol($sql, [
             ':student_id' => $student_id,
