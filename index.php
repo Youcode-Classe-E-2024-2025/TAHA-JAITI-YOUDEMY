@@ -13,9 +13,7 @@ if (Session::isAdminLogged()) {
 } else {
     $header = '/App/Views/Partials/Header.php';
 }
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,20 +26,23 @@ if (Session::isAdminLogged()) {
     <title>Youdemy</title>
 </head>
 
-<body class="flex flex-col w-screen h-screen text-gray-100 bg-gray-900">
+<body class="text-gray-100 bg-gray-900">
 
-    <?php
-    //HEADER
+    <?php //HEADER
     require_once __DIR__ . $header;
-
-    require_once __DIR__ . '/App/Views/Helper/Message.php';
-    
-    //VIEWS LOGIC
-    $router->view();
-
-    //FOOTER
-    require_once __DIR__ . '/App/Views/Partials/Footer.php';
     ?>
+
+    <div class="flex flex-col justify-between min-h-screen">
+        <?php
+        require_once __DIR__ . '/App/Views/Helper/Message.php';
+
+        //VIEWS LOGIC
+        $router->view();
+        ?>
+
+        <!--FOOTER-->
+        <?php require_once __DIR__ . '/App/Views/Partials/Footer.php'; ?>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
 </body>

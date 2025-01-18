@@ -14,7 +14,7 @@ $isLogged = $_SESSION['user'] ?? null;
         </nav>
 
         <?php if ($isLogged): ?>
-            <a href="?action=auth_logout" class="px-4 py-2 text-white transition-colors bg-blue-600 rounded hover:bg-blue-700">Log out</a>
+            <a href="?action=auth_logout" class="hidden px-4 py-2 text-white transition-colors bg-blue-600 rounded md:flex hover:bg-blue-700">Log out</a>
         <?php endif; ?>
 
         <!-- Mobile Menu Button -->
@@ -26,7 +26,7 @@ $isLogged = $_SESSION['user'] ?? null;
     <!-- Mobile Navigation -->
     <nav
         id="mobileNav"
-        class="fixed flex-col items-center justify-center hidden w-full px-4 py-6 space-y-4 bg-gray-800 border-t border-gray-700">
+        class="fixed flex-col items-center justify-center hidden w-full px-4 py-6 space-y-4 bg-gray-800 border-t border-gray-700 top-10">
         <a href="/mystats" class="text-gray-300 transition-colors hover:text-blue-400">Statistics</a>
         <a href="/manage-courses" class="text-gray-300 transition-colors hover:text-blue-400">Manage Courses</a>
         <?php if ($isLogged): ?>
