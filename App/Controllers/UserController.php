@@ -2,7 +2,6 @@
 
 class UserController extends Controller
 {
-
     private User $userModel;
 
     public function __construct()
@@ -14,80 +13,71 @@ class UserController extends Controller
     public function getAll()
     {
         $users = $this->userModel->getAll();
-
         return $users;
     }
 
     public function getAllTeachers()
     {
         $users = $this->userModel->getAllTeachers();
-
         return $users;
     }
 
     public function approve()
     {
         if (!$this->validateToken($_GET['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/manage-users');
+            Session::redirectErr('/manage-users', 'Invalid CSRF token.');
+            return;
         }
 
         $id = intval($_GET['id']);
 
         $user = $this->userModel;
-
         $user->setId($id);
         $user->setStatus('active');
 
         if ($user->updateStatus()) {
-            $_SESSION['success'] = 'User approved.';
-            $this->redirect('/manage-users');
+            Session::redirectSuccess('/manage-users', 'User approved.');
         } else {
-            $_SESSION['error'] = 'Failed to approve user.';
-            $this->redirect('/manage-users');
+            Session::redirectErr('/manage-users', 'Failed to approve user.');
         }
     }
 
-    public function suspend(){
+    public function suspend()
+    {
         if (!$this->validateToken($_GET['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/manage-users');
+            Session::redirectErr('/manage-users', 'Invalid CSRF token.');
+            return;
         }
 
         $id = intval($_GET['id']);
 
         $user = $this->userModel;
-
         $user->setId($id);
         $user->setStatus('suspended');
 
         if ($user->updateStatus()) {
-            $_SESSION['success'] = 'User suspended.';
-            $this->redirect('/manage-users');
+            Session::redirectSuccess('/manage-users', 'User suspended.');
         } else {
-            $_SESSION['error'] = 'Failed to suspend user.';
-            $this->redirect('/manage-users');
+            Session::redirectErr('/manage-users', 'Failed to suspend user.');
         }
     }
 
-    public function delete(){
+    public function delete()
+    {
         if (!$this->validateToken($_GET['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/manage-users');
+            Session::redirectErr('/manage-users', 'Invalid CSRF token.');
+            return;
         }
 
         $id = intval($_GET['id']);
 
         $user = $this->userModel;
-
         $user->setId($id);
 
         if ($user->delete()) {
-            $_SESSION['success'] = 'User deleted.';
-            $this->redirect('/manage-users');
+            Session::redirectSuccess('/manage-users', 'User deleted.');
         } else {
-            $_SESSION['error'] = 'Failed to delete user.';
-            $this->redirect('/manage-users');
+            Session::redirectErr('/manage-users', 'Failed to delete user.');
         }
     }
 }
