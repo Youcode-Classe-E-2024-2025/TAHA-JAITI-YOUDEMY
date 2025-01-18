@@ -9,7 +9,7 @@ class TagController extends Controller
         parent::__construct();
         $this->tagModel = new Tag();
     }
-    
+
     public function getAll()
     {
         $tags = $this->tagModel->getAll();
@@ -19,33 +19,33 @@ class TagController extends Controller
     public function create()
     {
         if (!$this->validateToken($_POST['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/manage-tags');
+            Session::redirectErr('/manage-tags', 'Invalid CSRF token.');
+            return;
         }
 
         $data = $this->getData();
 
-        $tagNames = $data['name'];
+        $tagNames = $data['name'] ?? '';
 
         if (empty($tagNames)) {
-            $_SESSION['error'] = 'Tag names are required.';
-            $this->redirect('/manage-tags');
+            Session::redirectErr('/manage-tags', 'Tag names are required.');
+            return;
         }
 
-        $tagNames = array_map('trim', explode(',' ,$tagNames));
+        $tagNames = array_map('trim', explode(',', $tagNames));
         $tagNames = array_filter($tagNames);
+
+        if (empty($tagNames)) {
+            Session::redirectErr('/manage-tags', 'Invalid tag names.');
+            return;
+        }
 
         $success = 0;
         $bad = 0;
 
-        if (empty($tagNames)) {
-            $_SESSION['error'] = 'Invalid tag names.';
-            $this->redirect('/manage-tags');
-        }
-
-        foreach ($tagNames as $tag){
+        foreach ($tagNames as $tag) {
             $this->tagModel->setName($tag);
-            if ($this->tagModel->create()){
+            if ($this->tagModel->create()) {
                 $success++;
             } else {
                 $bad++;
@@ -53,36 +53,32 @@ class TagController extends Controller
         }
 
         if ($bad === 0) {
-            $_SESSION['success'] = "All tags created successfully.";
+            Session::redirectSuccess('/manage-tags', 'All tags created successfully.');
         } else {
-            $_SESSION['error'] = "Created $success tags, but $bad failed.";
+            Session::redirectErr('/manage-tags', "Created $success tags, but $bad failed.");
         }
-
-        $this->redirect('/manage-tags');
     }
 
     public function delete()
     {
         if (!$this->validateToken($_GET['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/manage-tags');
+            Session::redirectErr('/manage-tags', 'Invalid CSRF token.');
+            return;
         }
 
         $id = intval($_GET['id']);
 
         if (empty($id)) {
-            $_SESSION['error'] = 'Tag ID is required.';
-            $this->redirect('/manage-tags');
+            Session::redirectErr('/manage-tags', 'Tag ID is required.');
+            return;
         }
 
         $this->tagModel->setId($id);
 
         if ($this->tagModel->delete()) {
-            $_SESSION['success'] = 'Tag deleted successfully.';
+            Session::redirectSuccess('/manage-tags', 'Tag deleted successfully.');
         } else {
-            $_SESSION['error'] = 'Failed to delete tag.';
+            Session::redirectErr('/manage-tags', 'Failed to delete tag.');
         }
-
-        $this->redirect('/manage-tags');
     }
 }

@@ -2,34 +2,32 @@
 
 class EnrollmentController extends Controller
 {
-
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 
     public function enroll()
     {
         if (!$this->validateToken($_GET['csrf'])) {
-            $_SESSION['error'] = 'Invalid CSRF token.';
-            $this->redirect('/catalog');
+            Session::redirectErr('/catalog', 'Invalid CSRF token.');
+            return;
         }
 
         $course_id = isset($_GET['id']) ? intval($_GET['id']) : null;
         $user_id = Session::getId();
 
         if (!$course_id || $user_id === 0 || Session::getRole() !== 'student') {
-            $_SESSION['error'] = 'Invalid course/session.';
-            $this->redirect('/catalog');
+            Session::redirectErr('/catalog', 'Invalid course/session.');
+            return;
         }
 
         $enroll = new Enrollment($course_id, $user_id);
 
         if ($enroll->enroll()) {
-            $_SESSION['success'] = 'Enrolled!';
-            $this->redirect('/catalog');
+            Session::redirectSuccess('/catalog', 'Enrolled!');
         } else {
-            $_SESSION['error'] = 'Failed to enroll, Try again later.';
-            $this->redirect('/catalog');
+            Session::redirectErr('/catalog', 'Failed to enroll, Try again later.');
         }
     }
 
@@ -39,12 +37,11 @@ class EnrollmentController extends Controller
 
         $user_id = Session::getId();
         if ($user_id === 0 || Session::getRole() !== 'student') {
-            $_SESSION['error'] = 'Invalid session.';
-            $this->redirect('/mycourses');
+            Session::redirectErr('/mycourses', 'Invalid session.');
+            return;
         }
 
-        $enroll = new Enrollment(0,$user_id);
-
+        $enroll = new Enrollment(0, $user_id);
         $result = $enroll->getEnrolledCourses($page);
 
         return [
@@ -53,16 +50,16 @@ class EnrollmentController extends Controller
         ];
     }
 
-    public function getCourseStudents(){
+    public function getCourseStudents()
+    {
         $id = isset($_GET['id']) ? intval($_GET['id']) : null;
 
-        if (!$id){
-            $_SESSION['error'] = 'Invalid id.';
-            $this->redirect('/mystats');
+        if (!$id) {
+            Session::redirectErr('/mystats', 'Invalid ID.');
+            return;
         }
 
         $enroll = new Enrollment($id, 0);
-
         return $enroll->getCourseStudents();
     }
 }
