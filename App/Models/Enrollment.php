@@ -104,7 +104,27 @@ class Enrollment
             ],
         ];
     }
+    public function getCourseStudents(): array
+    {
+        $sql = "SELECT u.id, u.name, u.email, u.role FROM users u
+                JOIN enrollments e ON u.id = e.student_id
+                WHERE e.course_id = :cid";
+        $data = $this->pdo->fetchAll($sql, [':cid' => $this->course_id]);
 
+        $users = [];
+
+        foreach ($data as $row) {
+            $student = new User();
+            $student->setId($row['id']);
+            $student->setName($row['name']);
+            $student->setEmail($row['email']);
+            $student->setRole($row['role']);
+
+            $users[] = $student;
+        }
+
+        return $users;
+    }
     public static function isEnrolled(int $student_id, int $course_id): bool
     {
         $pdo = Database::getInstance();
@@ -116,25 +136,25 @@ class Enrollment
         return $result > 0;
     }
 
-    public function getCourseStudents(): array
+    public static function getTotalStudents(): int
     {
-        $sql = "SELECT u.id, u.name, u.email, u.role FROM users u
-                JOIN enrollments e ON u.id = e.student_id
-                WHERE e.course_id = :cid";
-        $data = $this->pdo->fetchAll($sql , [':cid' => $this->course_id]);
+        $pdo = Database::getInstance();
+        $sql = "SELECT COUNT(DISTINCT e.student_id) as total_students
+                FROM enrollments e
+                JOIN courses c ON e.course_id = c.id
+                WHERE c.teacher_id = :t_id";
 
-        $users = [];
+        $result = $pdo->fetch($sql, [':t_id' => Session::getId()]);
+        return (int) $result['total_students'];
+    }
 
-        foreach($data as $row){
-            $student = new User();
-            $student->setId($row['id']);
-            $student->setName($row['name']);
-            $student->setEmail($row['email']);
-            $student->setRole($row['role']);
+    public static function getTotalCourses(): int{
+        $pdo = Database::getInstance();
+        $sql = "SELECT COUNT(DISTINCT c.id) as total_courses FROM courses c 
+                JOIN users u ON c.teacher_id = u.id
+                WHERE c.teacher_id = :t_id";
 
-            $users[] = $student;
-        }
-
-        return $users;
+        $result = $pdo->fetch($sql, [':t_id' => Session::getId()]);
+        return (int) $result['total_courses'];
     }
 }

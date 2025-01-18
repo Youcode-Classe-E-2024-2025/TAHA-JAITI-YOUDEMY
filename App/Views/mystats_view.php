@@ -1,3 +1,13 @@
+<?php 
+$total_students = Enrollment::getTotalStudents();
+$total_courses = Enrollment::getTotalCourses();
+
+if ($total_courses > 0){
+    $avg_student = round($total_students / $total_courses, 2);
+}
+
+?>
+
 <main class="container flex-grow px-4 py-8 mx-auto">
     <!-- Header -->
     <div class="mb-8 text-center">
@@ -15,7 +25,7 @@
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Total Students Enrolled</h2>
-                    <p class="text-2xl font-bold text-white">1,250</p>
+                    <p class="text-2xl font-bold text-white"><?=$total_students?></p>
                 </div>
             </div>
         </div>
@@ -28,7 +38,7 @@
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Total Courses</h2>
-                    <p class="text-2xl font-bold text-white">85</p>
+                    <p class="text-2xl font-bold text-white"><?=$total_courses?></p>
                 </div>
             </div>
         </div>
@@ -41,7 +51,7 @@
                 </div>
                 <div class="ml-4">
                     <h2 class="text-lg font-semibold text-gray-300">Avg. Students per Course</h2>
-                    <p class="text-2xl font-bold text-white">15</p>
+                    <p class="text-2xl font-bold text-white"><?=$avg_student ?? 0?></p>
                 </div>
             </div>
         </div>
