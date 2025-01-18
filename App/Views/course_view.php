@@ -1,7 +1,7 @@
 <?php
 $course = (new CourseController())->getById();
 
-
+$isEnrolled = Enrollment::isEnrolled(Session::getId(), $course->getId());
 ?>
 <main class="h-full w-full flex justify-center items-center bg-gray-900">
     <div class="container mx-auto px-4 py-8 lg:py-12 max-w-6xl">
@@ -40,6 +40,14 @@ $course = (new CourseController())->getById();
                             <?= str_secure($course->getDescription()) ?>
                         </div>
 
+                        <?php if ($isEnrolled): ?>
+                            <!-- Content -->
+                            <div class="prose prose-invert prose-lg max-w-none prose-headings:text-amber-400 
+                            prose-a:text-amber-400 prose-strong:text-gray-200 prose-code:text-amber-300">
+                                <?= $course->getContent() ?>
+                            </div>
+                        <?php endif; ?>
+
                         <!-- Tags -->
                         <div class="flex flex-wrap gap-2 pt-4">
                             <?php foreach ($course->getTags() as $tag): ?>
@@ -50,10 +58,10 @@ $course = (new CourseController())->getById();
                             <?php endforeach; ?>
                         </div>
 
-                        <!-- Enroll Button -->
-                        <?php if (Session::getRole() === 'student'): ?>
+                        <?php if (Session::getRole() === 'student' && !$isEnrolled): ?>
+                            <!-- Enroll Button -->
                             <div class="pt-6 w-full">
-                                <a href="?action=enrollment_enroll&id=<?= $course->getId()?>&csrf=<?=genToken()?>"
+                                <a href="?action=enrollment_enroll&id=<?= $course->getId() ?>&csrf=<?= genToken() ?>"
                                     class="btn_second">
                                     Enroll Now
                                 </a>

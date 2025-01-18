@@ -74,7 +74,7 @@ class Enrollment
         $courses = [];
         foreach ($data as $row) {
             $course = new StudentCourse();
-            $course->setId($row['id']);
+            $course->setId($row['course_id']);
             $course->setTitle($row['title']);
             $course->setDescription($row['description']);
             $course->setContent($row['content']);
@@ -103,5 +103,15 @@ class Enrollment
                 'total_pages' => $pageCount,
             ],
         ];
+    }
+
+    public static function isEnrolled(int $student_id, int $course_id){
+        $pdo = new Database();
+        $sql = "SELECT COUNT(*) FROM enrollments WHERE student_id = :student_id AND course_id = :course_id";
+        $result = $pdo->fetchCol($sql, [
+            ':student_id' => $student_id,
+            ':course_id' => $course_id,
+        ]);
+        return $result > 0;
     }
 }
