@@ -1,6 +1,6 @@
 <?php 
-$total_students = Enrollment::getTotalStudents();
-$total_courses = Enrollment::getTotalCourses();
+$total_students = (new Enrollment(0,0))->getTotalStudents();
+$total_courses = (new Enrollment(0,0))->getTotalCourses();
 
 if ($total_courses > 0){
     $avg_student = round($total_students / $total_courses, 2);
