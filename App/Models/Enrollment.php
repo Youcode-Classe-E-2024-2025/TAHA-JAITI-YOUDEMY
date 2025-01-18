@@ -74,7 +74,7 @@ class Enrollment
         $courses = [];
         foreach ($data as $row) {
             $course = new StudentCourse();
-            $course->setId($row['course_id']);
+            $course->setId($row['id']);
             $course->setTitle($row['title']);
             $course->setDescription($row['description']);
             $course->setContent($row['content']);
