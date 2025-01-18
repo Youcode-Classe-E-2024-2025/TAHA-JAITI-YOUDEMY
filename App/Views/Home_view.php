@@ -98,7 +98,7 @@
     </div>
 </section>
 
-<?php if (!Session::getRole() === 'visitor'): ?>
+<?php if (Session::getRole() === 'visitor'): ?>
     <section class="py-20 bg-blue-900">
         <div class="container px-6 mx-auto text-center">
             <h2 class="mb-8 text-4xl font-bold text-white">Ready to Start Learning?</h2>

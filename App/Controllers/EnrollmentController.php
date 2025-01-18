@@ -52,4 +52,17 @@ class EnrollmentController extends Controller
             'pagination' => $result['pagination']
         ];
     }
+
+    public function getCourseStudents(){
+        $id = isset($_GET['id']) ? intval($_GET['id']) : null;
+
+        if (!$id){
+            $_SESSION['error'] = 'Invalid id.';
+            $this->redirect('/mystats');
+        }
+
+        $enroll = new Enrollment($id, 0);
+
+        return $enroll->getCourseStudents();
+    }
 }

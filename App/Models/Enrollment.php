@@ -49,7 +49,7 @@ class Enrollment
     {
         $offset = ($page - 1) * $limit;
 
-        $sql = "SELECT c.*, e.*, u.id 
+        $sql = "SELECT c.*
             FROM courses c
             JOIN enrollments e ON c.id = e.course_id
             JOIN users u ON e.student_id = u.id
@@ -105,7 +105,8 @@ class Enrollment
         ];
     }
 
-    public static function isEnrolled(int $student_id, int $course_id){
+    public static function isEnrolled(int $student_id, int $course_id): bool
+    {
         $pdo = Database::getInstance();
         $sql = "SELECT COUNT(*) FROM enrollments WHERE student_id = :student_id AND course_id = :course_id";
         $result = $pdo->fetchCol($sql, [
@@ -113,5 +114,27 @@ class Enrollment
             ':course_id' => $course_id,
         ]);
         return $result > 0;
+    }
+
+    public function getCourseStudents(): array
+    {
+        $sql = "SELECT u.id, u.name, u.email, u.role FROM users u
+                JOIN enrollments e ON u.id = e.student_id
+                WHERE e.course_id = :cid";
+        $data = $this->pdo->fetchAll($sql , [':cid' => $this->course_id]);
+
+        $users = [];
+
+        foreach($data as $row){
+            $student = new User();
+            $student->setId($row['id']);
+            $student->setName($row['name']);
+            $student->setEmail($row['email']);
+            $student->setRole($row['role']);
+
+            $users[] = $student;
+        }
+
+        return $users;
     }
 }
