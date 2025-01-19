@@ -121,7 +121,7 @@ class CourseController extends Controller
 
     public function delete()
     {
-        if (!$this->validateToken($_POST['csrf'])) {
+        if (!$this->validateToken($_GET['csrf'])) {
             Session::redirectErr('/manage-courses', 'Invalid CSRF token.');
             return;
         }
