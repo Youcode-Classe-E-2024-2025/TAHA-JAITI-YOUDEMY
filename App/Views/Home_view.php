@@ -1,4 +1,4 @@
-<!-- Hero Section -->
+<!-- Header -->
 <section class="py-20 bg-gradient-to-r from-black to-blue-900">
     <div class="container px-6 mx-auto text-center">
         <h1 class="mb-6 text-4xl font-bold text-white md:text-5xl">Learn Online with Youdemy</h1>
@@ -9,12 +9,12 @@
     </div>
 </section>
 
-<!-- Why Choose Youdemy? -->
+<!-- Main -->
 <section class="py-20 bg-gray-900">
     <div class="container px-6 mx-auto">
         <h2 class="mb-12 text-3xl font-bold text-center text-white md:mb-16">Why Choose Youdemy?</h2>
         <div class="grid gap-8 md:grid-cols-3 md:gap-12">
-            <!-- Interactive Courses -->
+            <!-- -->
             <div class="text-center">
                 <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-900 rounded-full">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,7 +25,7 @@
                 <p class="text-gray-400">Access quality educational content and interact with your teachers</p>
             </div>
 
-            <!-- Learn at Your Own Pace -->
+            <!-- -->
             <div class="text-center">
                 <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-900 rounded-full">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,7 +36,7 @@
                 <p class="text-gray-400">Study whenever and wherever you want, on your own schedule</p>
             </div>
 
-            <!-- Expert Teachers -->
+            <!-- -->
             <div class="text-center">
                 <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-900 rounded-full">
                     <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,11 +50,11 @@
     </div>
 </section>
 
-<!-- Features Grid -->
+<!-- -->
 <section class="py-20 bg-black">
     <div class="container px-6 mx-auto">
         <div class="grid gap-12 md:grid-cols-2 md:gap-16">
-            <!-- For Students -->
+            <!--  -->
             <div class="space-y-6">
                 <h2 class="text-3xl font-bold text-white">For Students</h2>
                 <ul class="space-y-4 text-gray-300">
@@ -79,7 +79,7 @@
                 </ul>
             </div>
 
-            <!-- For Teachers -->
+            <!-- -->
             <div class="space-y-6">
                 <h2 class="text-3xl font-bold text-white">For Teachers</h2>
                 <ul class="space-y-4 text-gray-300">
@@ -107,7 +107,7 @@
     </div>
 </section>
 
-<!-- Call to Action (For Visitors) -->
+<!-- -->
 <?php if (Session::getRole() === 'visitor'): ?>
     <section class="py-20 bg-blue-900">
         <div class="container px-6 mx-auto text-center">

@@ -1,4 +1,8 @@
 <?php
+if (!Session::isAdminLogged()){
+    Session::redirect('/home');
+}
+
 $total_courses = (new AdminStats())->getTotalCourses();
 $popular = AdminStats::getPopularCourse();
 $popular_teacher = AdminStats::getPopularTeachers();

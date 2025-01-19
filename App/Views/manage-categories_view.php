@@ -1,4 +1,8 @@
 <?php
+if (!Session::isAdminLogged()){
+    Session::redirect('/home');
+}
+
 $categories = (new CategoryController())->getAll();
 ?>
 

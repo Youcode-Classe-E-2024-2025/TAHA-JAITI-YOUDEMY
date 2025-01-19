@@ -1,4 +1,8 @@
 <?php
+if (!Session::isAdminLogged() || !Session::isTeacherLogged()){
+    Session::redirect('/home');
+}
+
 $courses = (new CourseController())->getAll();
 $categories = (new CategoryController())->getAll();
 $tags = (new TagController())->getAll();

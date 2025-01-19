@@ -1,4 +1,8 @@
 <?php 
+if (!Session::isTeacherLogged()){
+    Session::redirect('/home');
+}
+
 $total_students = (new Enrollment(0,0))->getTotalStudents();
 $total_courses = (new Enrollment(0,0))->getTotalCourses();
 

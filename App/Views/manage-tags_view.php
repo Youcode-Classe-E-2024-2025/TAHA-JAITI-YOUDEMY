@@ -1,4 +1,8 @@
 <?php
+if (!Session::isAdminLogged()){
+    Session::redirect('/home');
+}
+
 $tags = (new TagController())->getAll();
 ?>
 
