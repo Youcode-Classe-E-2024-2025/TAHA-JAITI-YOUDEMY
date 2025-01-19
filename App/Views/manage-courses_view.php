@@ -1,5 +1,5 @@
 <?php
-if (!Session::isAdminLogged() || !Session::isTeacherLogged()){
+if (!Session::isAdminLogged() && !Session::isTeacherLogged()){
     Session::redirect('/home');
 }
 

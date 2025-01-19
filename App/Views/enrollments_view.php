@@ -1,5 +1,5 @@
 <?php
-if (Session::getRole() === 'visitor' || Session::getRole() === 'student') {
+if (!Session::isAdminLogged() && !Session::isTeacherLogged()){
     Session::redirect('/home');
 }
 
