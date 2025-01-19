@@ -22,7 +22,7 @@ if (Session::isAdminLogged()) {
     </div>
 
     <?php if (empty($courses)): ?>
-        <div class="h-full p-12 text-center bg-gray-800/50 rounded-xl">
+        <div class="h-[58vh] p-12 text-center bg-gray-800/50 rounded-xl">
             <span class="icon-[mdi--book-outline] text-6xl text-gray-400 mb-4 inline-block"></span>
             <p class="text-lg text-gray-400">No courses have been added yet.</p>
         </div>

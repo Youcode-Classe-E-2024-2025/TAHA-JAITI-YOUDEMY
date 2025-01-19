@@ -77,7 +77,7 @@ $course_cat = AdminStats::getCourseByCategory();
         <div class="grid grid-cols-1 gap-6 mb-12 lg:grid-cols-2">
             <!-- Category Distribution -->
             <div class="p-6 bg-gray-800/50 backdrop-blur rounded-xl">
-                <h2 class="mb-6 text-xl font-bold text-white">Course Distribution</h2>
+                <h2 class="mb-6 text-xl font-bold text-white">Course Distribution By Category</h2>
                 <div class="space-y-4 max-h-[400px] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900 pr-2">
                     <?php foreach ($course_cat as $category): ?>
                         <div class="flex items-center justify-between p-4 transition-colors rounded-lg bg-gray-700/50 hover:bg-gray-700">
