@@ -40,7 +40,7 @@ class AdminStats extends Enrollment
         ];
     }
 
-    public static function getPopularTeachers()
+    public static function getPopularTeachers(): array
     {
         $pdo = Database::getInstance();
 

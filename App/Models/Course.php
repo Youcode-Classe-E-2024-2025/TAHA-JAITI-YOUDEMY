@@ -135,8 +135,8 @@ abstract class Course
     }
     
 
-    abstract public function save(): bool;
-    abstract public function getById(): ?self;
-    abstract public function getAll(): array;
+    abstract protected function save(): bool;
+    abstract protected function getById(): ?self;
+    abstract protected function getAll(): array;
     
 }
