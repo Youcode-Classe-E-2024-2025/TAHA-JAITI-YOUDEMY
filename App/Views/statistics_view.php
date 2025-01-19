@@ -93,7 +93,7 @@ $course_cat = AdminStats::getCourseByCategory();
                     <table class="w-full">
                         <thead>
                             <tr>
-                                <th class="pb-4 text-sm font-medium text-left text-gray-400">Rank</th>
+                                <th class="pb-4 text-sm font-medium text-left text-gray-400">ID</th>
                                 <th class="pb-4 text-sm font-medium text-left text-gray-400">Name</th>
                                 <th class="pb-4 text-sm font-medium text-left text-gray-400">Courses</th>
                                 <th class="pb-4 text-sm font-medium text-left text-gray-400">Students</th>
