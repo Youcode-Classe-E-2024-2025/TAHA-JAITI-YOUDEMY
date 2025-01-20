@@ -1,14 +1,19 @@
 <?php
-$data = (new CourseController())->getAll();
-$courses = $data['courses'];
-$pagination = $data['pagination'];
+$query = $_GET['q'] ?? '';
+$courses = (new CourseController())->search();
 
 ?>
 
 <main class="container px-4 py-8 mx-auto">
     <!-- Search -->
     <form action="/search" method="GET" class="flex items-center justify-center gap-4 my-5">
-        <input type="text" name="q" placeholder="Search courses..." class="w-full p-2 text-white bg-gray-700 rounded">
+        <input
+            type="text"
+            name="q"
+            placeholder="Search courses..."
+            class="w-full p-2 text-white bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value="<?= str_secure($query) ?>"
+        />
         <button
             type="submit"
             class="btn_second">
@@ -21,14 +26,14 @@ $pagination = $data['pagination'];
         <?php if (empty($courses)): ?>
             <div class="p-12 text-center bg-gray-800/50 rounded-xl">
                 <span class="icon-[mdi--book-outline] text-6xl text-gray-400 mb-4 inline-block"></span>
-                <p class="text-lg text-gray-400">No courses have been added yet.</p>
+                <p class="text-lg text-gray-400">No courses found.</p>
             </div>
         <?php else: ?>
             <?php foreach ($courses as $course): ?>
                 <div class="bg-gray-800/90 rounded-sm shadow-xl overflow-hidden h-full flex flex-col transform transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl">
                     <!-- Image -->
                     <div class="relative">
-                        <img class="object-cover w-full h-52" src="<?= $course->getImage() ?>" alt="Course Image">
+                        <img class="object-cover w-full h-52" src="<?= str_secure($course->getImage()) ?>" alt="Course Image">
                         <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
                     </div>
 
@@ -49,7 +54,7 @@ $pagination = $data['pagination'];
                         <!-- Category -->
                         <div class="flex items-center gap-2 mb-4 text-sm text-gray-400">
                             <span class="icon-[mdi--folder-outline]"></span>
-                            <?= $course->getCategory()->getById()->getName() ?>
+                            <?= str_secure($course->getCategory()->getName()) ?>
                         </div>
 
                         <!-- Footer -->
@@ -62,28 +67,12 @@ $pagination = $data['pagination'];
                             </div>
                             <div class="flex items-center gap-2 text-sm text-gray-400">
                                 <span class="icon-[mdi--account-outline]"></span>
-                                <?= ucfirst($course->getTeacher()->getById()['name']) ?>
+                                <?= str_secure($course->getTeacher()->getName()) ?>
                             </div>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
-    </div>
-
-    <!-- Pagination -->
-    <div class="flex justify-center mt-8 space-x-4">
-        <?php if ($pagination['page'] > 1): ?>
-            <a href="/catalog?p=<?= $pagination['page'] - 1 ?>" class="font-bold btn_second">
-                << /a>
-                <?php endif; ?>
-
-                <?php for ($i = 1; $i <= $pagination['total_pages']; $i++): ?>
-                    <a href="/catalog?p=<?= $i ?>" class="btn_second <?= $i === $pagination['page'] ? 'bg-blue-700' : '' ?>"><?= $i ?></a>
-                <?php endfor; ?>
-
-                <?php if ($pagination['page'] < $pagination['total_pages']): ?>
-                    <a href="/catalog?p=<?= $pagination['page'] + 1 ?>" class="font-bold btn_second">></a>
-                <?php endif; ?>
     </div>
 </main>

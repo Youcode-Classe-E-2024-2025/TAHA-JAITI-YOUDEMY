@@ -59,7 +59,7 @@ class StudentCourse extends Course
         $totalCount = 'SELECT COUNT(*) as total FROM courses';
         $totalRes = $this->pdo->fetch($totalCount);
 
-        $pageCount = ceil($totalRes['total']/$limit);
+        $pageCount = ceil($totalRes['total'] / $limit);
 
         $courses = [];
         foreach ($data as $row) {
@@ -93,5 +93,60 @@ class StudentCourse extends Course
                 'total_pages' => $pageCount
             ]
         ];
+    }
+
+    public function search(string $input): array
+    {
+        if (empty($input)) {
+            return [];
+        }
+
+        $sql = "SELECT c.id, c.title, c.description, c.content, c.image, 
+                u.id as teacher_id, u.name as teacher_name, 
+                cat.id as category_id, cat.name as category_name
+            FROM courses c
+            JOIN users u ON c.teacher_id = u.id
+            JOIN categories cat ON c.category_id = cat.id
+            WHERE c.title LIKE :query 
+            OR c.description LIKE :query 
+            OR cat.name LIKE :query 
+            OR u.name LIKE :query";
+
+        $params = [':query' => '%' . $input . '%'];
+
+        $data = $this->pdo->fetchAll($sql, $params);
+
+        if (!$data) {
+            return [];
+        }
+
+        $courses = [];
+        foreach ($data as $row) {
+            $course = new self();
+            $course->setId($row['id']);
+            $course->setTitle($row['title']);
+            $course->setDescription($row['description']);
+            $course->setContent($row['content']);
+            $course->setImage($row['image']);
+
+            $teacher = new User();
+            $teacher->setId($row['teacher_id']);
+            $teacher->setName($row['teacher_name']);
+            $course->setTeacher($teacher);
+
+            $category = new Category();
+            $category->setId($row['category_id']);
+            $category->setName($row['category_name']);
+            $course->setCategory($category);
+
+            $courseTag = new CourseTag();
+            $courseTag->setCourseId($row['id']);
+            $tags = $courseTag->getTagsByCourse();
+            $course->setTags($tags);
+
+            $courses[] = $course;
+        }
+
+        return $courses;
     }
 }

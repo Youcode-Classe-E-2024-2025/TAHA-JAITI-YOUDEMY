@@ -141,4 +141,18 @@ class CourseController extends Controller
             Session::redirectErr('/manage-courses', 'Failed to delete course.');
         }
     }
+
+    public function search() {
+        // if (!$this->validateToken($_GET['csrf'])) {
+        //     Session::redirectErr('/search', 'Invalid CSRF token.');
+        //     return;
+        // }
+
+        $query = isset($_GET['q']) ? $_GET['q'] : '';
+
+        $course = new StudentCourse();
+        $result = $course->search($query);
+
+        return $result;
+    }
 }
