@@ -69,7 +69,7 @@ if (Session::isAdminLogged()) {
                         <!-- Footer -->
                         <div class="flex items-center justify-between pt-4 border-t border-gray-700">
                             <div class="flex gap-4">
-                                <a href="?action=course_edit&id=<?= $course->getId() ?>"
+                                <a href="/edit-course?id=<?= $course->getId() ?>"
                                     class="flex items-center gap-1 text-blue-400 transition-colors duration-200 hover:text-blue-300">
                                     <span class="icon-[mdi--edit-outline]"></span>
                                     Edit

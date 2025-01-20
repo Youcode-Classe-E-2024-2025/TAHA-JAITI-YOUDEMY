@@ -24,7 +24,7 @@ $courses = (new CourseController())->search();
     <!-- Course Container -->
     <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         <?php if (empty($courses)): ?>
-            <div class="p-12 text-center bg-gray-800/50 rounded-xl">
+            <div class="col-span-4 p-12 text-center bg-gray-800/50 rounded-xl">
                 <span class="icon-[mdi--book-outline] text-6xl text-gray-400 mb-4 inline-block"></span>
                 <p class="text-lg text-gray-400">No courses found.</p>
             </div>
