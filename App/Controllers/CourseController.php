@@ -142,7 +142,77 @@ class CourseController extends Controller
         }
     }
 
-    public function search() {
+    public function update()
+    {
+        if (!$this->validateToken($_POST['csrf'])) {
+            Session::redirectErr('/manage-courses', 'Invalid CSRF token.');
+            return;
+        }
+
+        $data = $this->getData();
+
+        $id = $data['id'] ?? '';
+        $title = $data['title'] ?? '';
+        $description = $data['description'] ?? '';
+        $content = $data['content'] ?? '';
+        $image = $_FILES['image'] ?? null;
+        $teacher = Session::getRole() === 'teacher' ? Session::getId() : 1;
+        $category = $data['category_id'] ?? '';
+        $tags = $data['tags'] ?? [];
+
+        if (empty($id) || empty($title) || empty($description) || empty($content) || empty($category) || empty($tags)) {
+            Session::redirectErr('/manage-courses', 'All fields are required.');
+            return;
+        }
+
+        $imgPath = null;
+        if ($image && $image['error'] === UPLOAD_ERR_OK) {
+            $dir = __DIR__ . '/../../Assets';
+            $imgName = uniqid() . '_' . basename($image['name']);
+            $imgPath = $dir . '/' . $imgName;
+
+            if (!move_uploaded_file($image['tmp_name'], $imgPath)) {
+                Session::redirectErr('/manage-courses', 'Failed to upload the file.');
+                return;
+            }
+
+            $imgPath = '/Assets/' . $imgName;
+        }
+
+        $course = $this->course;
+        $course->setId($id);
+        $course->setTitle($title);
+        $course->setDescription($description);
+        $course->setContent($content);
+        $course->setImage($imgPath);
+
+        $user = new User();
+        $user->setId($teacher);
+        $course->setTeacher($user);
+
+        $cats = new Category();
+        $cats->setId($category);
+        $course->setCategory($cats);
+
+        if (!$course->save()) {
+            Session::redirectErr('/manage-courses', 'Failed to update course.');
+            return;
+        }
+
+        $tagArray = [];
+        foreach ($tags as $tag) {
+            $newTag = new Tag();
+            $newTag->setId(intval($tag));
+            $tagArray[] = $newTag;
+        }
+        $course->setTags($tagArray);
+        $course->saveTags();
+
+        Session::redirectSuccess('/manage-courses', 'Course updated successfully.');
+    }
+
+    public function search()
+    {
         // if (!$this->validateToken($_GET['csrf'])) {
         //     Session::redirectErr('/search', 'Invalid CSRF token.');
         //     return;
