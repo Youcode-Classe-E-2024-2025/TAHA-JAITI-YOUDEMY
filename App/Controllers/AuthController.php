@@ -101,7 +101,7 @@ class AuthController extends Controller
                     Session::redirect('/statistics');
                     break;
                 case 'teacher':
-                    Session::redirect('/home');
+                    Session::redirect('/manage-courses');
                     break;
                 case 'student':
                     Session::redirect('/home');
